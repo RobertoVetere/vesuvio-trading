@@ -37,3 +37,7 @@ Ensayos: 4 (acumulado: 28). Días bajistas 2018-23: 50 %.
 | x0 + cortos BTC/ETH | 1,21 | 1,11 | 1,12 | -46 % |
 | **x0,5 + cortos BTC/ETH** | **1,33** | **1,33** | **0,86** | -44 % |
 **ADOPTADO:** en bajista (BTC < media 200 d) largos al 50 % + cortos BTC/ETH (ruptura 55, riesgo 2 %, tope 50 %). Requiere futuros de Kraken.
+
+## Palanca 5 — objetivo de volatilidad (experimentos/v5_voltarget) — 2026-11-24
+Ensayos: 3 (acumulado: 31). ref 1,33/1,33/0,86 MaxDD -44 % · vol 20 %: 1,16/1,27/0,85 MaxDD -26 % · vol 30 %: 1,20/1,35/0,87 MaxDD -35 % · vol 40 %: 1,26/1,45/0,93 MaxDD -41 %.
+**NO adoptado como ventaja** (empeora 2018-23 por recortar en la manía de 2021). **Opción de riesgo para Roberto:** objetivo 20 % casi divide por dos la caída máxima a cambio de ~mitad de rentabilidad.
