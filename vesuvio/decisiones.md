@@ -41,3 +41,15 @@ Ensayos: 4 (acumulado: 28). Días bajistas 2018-23: 50 %.
 ## Palanca 5 — objetivo de volatilidad (experimentos/v5_voltarget) — 2026-11-24
 Ensayos: 3 (acumulado: 31). ref 1,33/1,33/0,86 MaxDD -44 % · vol 20 %: 1,16/1,27/0,85 MaxDD -26 % · vol 30 %: 1,20/1,35/0,87 MaxDD -35 % · vol 40 %: 1,26/1,45/0,93 MaxDD -41 %.
 **NO adoptado como ventaja** (empeora 2018-23 por recortar en la manía de 2021). **Opción de riesgo para Roberto:** objetivo 20 % casi divide por dos la caída máxima a cambio de ~mitad de rentabilidad.
+
+## Palanca 6 — meta-etiquetado LightGBM (experimentos/v6_meta) — 2026-11-24
+Ensayos: 3 (acumulado: 34). Todas peores en 2022-23 (0,72-0,75 vs 0,86). **NO adoptado.**
+
+## CONGELADO — 2026-11-24 (antes de mirar 2024-2026)
+VESUVIO = ruptura 55 días, solo largos, riesgo 1 %/posición, hasta 3 unidades, tope 25 %/activo, stop 3x vol al cierre
++ universo dinámico: 25 criptos más líquidas cada día (≥20M €/día)
++ banda de no-reajuste 50 % + entradas con órdenes de creador (0,25 %)
++ régimen: si BTC < media 200 d → largos al 50 % + cortos BTC/ETH (ruptura 55, riesgo 2 %, tope 50 %)
++ exposición total ≤ 1 (sin apalancamiento) + red de seguridad en el exchange a 8x vol.
+Diseño 2018-2023: Sharpe 1,33 / 1,33 / 0,86, MaxDD -44 %. 34 variantes probadas.
+Código: codigo/vesuvio_estrategia.py (pesos, sin meta) + codigo/vesuvio_base.py.

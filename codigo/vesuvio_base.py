@@ -6,6 +6,7 @@ U.CRYPTO.extend([t for t in MUERTAS_OK + EXTRA_OK if t not in U.CRYPTO])
 import panel, backtest as BT
 
 def preparar(fin="2023-12-31", top_n=25):
+    """fin=None: hasta hoy (solo para la prueba final)."""
     P = panel.build(end=fin)
     CR = [t for t in P.tradable if P.cls[t] == "CRYPTO"]
     dv = (P.wide("_dv20", P.tradable) * P.FX)[CR]
