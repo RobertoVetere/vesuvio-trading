@@ -30,8 +30,10 @@ def _vec(P):
     return slip, borrow, ftt, eu_min, is_us, is_eu, is_cr
 
 
-def run(P, W, start, end, capital=10_000.0, record_trades=False, cost_mult=1.0):
+def run(P, W, start, end, capital=10_000.0, record_trades=False, cost_mult=1.0, long_fin=None):
+    """long_fin: tasa anual por activo cobrada sobre posiciones largas (p. ej. financiación de CFD). None = sin coste (original)."""
     slip, borrow, ftt, eu_min, is_us, is_eu, is_cr = _vec(P)
+    lf = np.zeros(len(P.tradable)) if long_fin is None else np.asarray(long_fin, float)
     is_stock = is_us | is_eu
     cal = P.cal
     i0, i1 = cal.searchsorted(pd.Timestamp(start)), cal.searchsorted(pd.Timestamp(end), "right")
@@ -78,7 +80,7 @@ def run(P, W, start, end, capital=10_000.0, record_trades=False, cost_mult=1.0):
         # 3) intradía hasta el cierre
         pnl2 = np.sum(np.where(b, u * (c - o) * fxp, 0.0)) + np.sum(np.maximum(u, 0) * c * (fx - fxp))
         posv = u * c * fx
-        fin = cost_mult * np.sum(np.abs(np.minimum(posv, 0)) * borrow) / 365
+        fin = cost_mult * (np.sum(np.abs(np.minimum(posv, 0)) * borrow) + np.sum(np.maximum(posv, 0) * lf)) / 365
         nav_tmp = nav_open + pnl2 - tc
         lev = max(0.0, posv[posv > 0].sum() - nav_tmp - 1.0) * COST["margin_rate"] / 365
         nav = nav_tmp - fin - lev
