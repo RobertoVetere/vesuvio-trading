@@ -44,6 +44,7 @@ jobs:
       - name: Commit
         if: steps.hecha.outputs.si != '1'
         run: |
+          for f in $(git ls-files "*.json") estado/publico/*.json; do jq empty "$f" || { echo "JSON roto: $f"; exit 1; }; done
           git config user.name "vesuvio-bot"; git config user.email "actions@github.com"
           git add estado/ && git commit -m "noche $(date +%F): simulación (Actions)"
           for i in 1 2 3; do git pull --rebase -q && git push && exit 0; sleep 5; done; exit 1
