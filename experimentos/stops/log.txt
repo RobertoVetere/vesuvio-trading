@@ -1,1 +1,83 @@
 hecho PRINCIPAL 2.0 cierre
+hecho PRINCIPAL 2.0 exchange
+hecho PRINCIPAL 3.0 cierre
+hecho PRINCIPAL 3.0 exchange
+hecho PRINCIPAL 4.0 cierre
+hecho PRINCIPAL 4.0 exchange
+hecho CRIPTO_TREND_1% 2.0 cierre
+hecho CRIPTO_TREND_1% 2.0 exchange
+hecho CRIPTO_TREND_1% 3.0 cierre
+hecho CRIPTO_TREND_1% 3.0 exchange
+hecho CRIPTO_TREND_1% 4.0 cierre
+hecho CRIPTO_TREND_1% 4.0 exchange
+hecho CRIPTO_TREND_2% 2.0 cierre
+hecho CRIPTO_TREND_2% 2.0 exchange
+hecho CRIPTO_TREND_2% 3.0 cierre
+hecho CRIPTO_TREND_2% 3.0 exchange
+hecho CRIPTO_TREND_2% 4.0 cierre
+hecho CRIPTO_TREND_2% 4.0 exchange
+     estrategia  stop_x_vol     stop      desde    CAGR  Sharpe   MaxDD  CostesAnualPct  operaciones
+      PRINCIPAL         2.0   cierre 2018-01-01  0.2345  0.8638 -0.3029          0.1082          313
+      PRINCIPAL         2.0   cierre 2022-01-01  0.0793  0.4583 -0.3021          0.1079          163
+      PRINCIPAL         2.0   cierre 2023-01-01  0.1170  0.5812 -0.3021          0.1222          153
+      PRINCIPAL         2.0 exchange 2018-01-01  0.1233  0.5500 -0.3192          0.1643          404
+      PRINCIPAL         2.0 exchange 2022-01-01 -0.0191  0.0206 -0.3192          0.1610          200
+      PRINCIPAL         2.0 exchange 2023-01-01  0.0012  0.1245 -0.3192          0.1873          187
+      PRINCIPAL         3.0   cierre 2018-01-01  0.2524  0.8838 -0.3305          0.0756          279
+      PRINCIPAL         3.0   cierre 2022-01-01  0.1035  0.5266 -0.3305          0.0756          151
+      PRINCIPAL         3.0   cierre 2023-01-01  0.1819  0.7673 -0.3305          0.0845          141
+      PRINCIPAL         3.0 exchange 2018-01-01  0.1930  0.7591 -0.3449          0.1013          324
+      PRINCIPAL         3.0 exchange 2022-01-01  0.0172  0.1873 -0.3449          0.1011          175
+      PRINCIPAL         3.0 exchange 2023-01-01  0.0461  0.3067 -0.3449          0.1170          165
+      PRINCIPAL         4.0   cierre 2018-01-01  0.2754  0.9356 -0.3205          0.0547          245
+      PRINCIPAL         4.0   cierre 2022-01-01  0.1177  0.5719 -0.2841          0.0561          128
+      PRINCIPAL         4.0   cierre 2023-01-01  0.2150  0.8582 -0.2841          0.0618          117
+      PRINCIPAL         4.0 exchange 2018-01-01  0.2051  0.7903 -0.2814          0.0727          276
+      PRINCIPAL         4.0 exchange 2022-01-01  0.0341  0.2610 -0.2814          0.0746          151
+      PRINCIPAL         4.0 exchange 2023-01-01  0.0795  0.4320 -0.2814          0.0856          140
+CRIPTO_TREND_1%         2.0   cierre 2018-01-01  0.5811  1.2217 -0.4958          0.2564         4524
+CRIPTO_TREND_1%         2.0   cierre 2022-01-01  0.1690  0.5992 -0.4554          0.2472         2383
+CRIPTO_TREND_1%         2.0   cierre 2023-01-01  0.2875  0.8313 -0.4554          0.2637         2077
+CRIPTO_TREND_1%         2.0 exchange 2018-01-01  0.1191  0.4712 -0.7700          0.3828         5383
+CRIPTO_TREND_1%         2.0 exchange 2022-01-01 -0.1526 -0.3112 -0.6737          0.3601         2952
+CRIPTO_TREND_1%         2.0 exchange 2023-01-01 -0.1372 -0.2274 -0.5801          0.4307         2632
+CRIPTO_TREND_1%         3.0   cierre 2018-01-01  0.6235  1.2986 -0.4650          0.1793         4267
+CRIPTO_TREND_1%         3.0   cierre 2022-01-01  0.1675  0.6043 -0.4650          0.1751         2296
+CRIPTO_TREND_1%         3.0   cierre 2023-01-01  0.2956  0.8684 -0.4650          0.1867         1993
+CRIPTO_TREND_1%         3.0 exchange 2018-01-01  0.3675  0.9441 -0.5905          0.2383         4575
+CRIPTO_TREND_1%         3.0 exchange 2022-01-01 -0.0009  0.1686 -0.5405          0.2312         2446
+CRIPTO_TREND_1%         3.0 exchange 2023-01-01  0.0477  0.3096 -0.5405          0.2621         2154
+CRIPTO_TREND_1%         4.0   cierre 2018-01-01  0.5229  1.1536 -0.5458          0.1413         4165
+CRIPTO_TREND_1%         4.0   cierre 2022-01-01  0.0974  0.4373 -0.4399          0.1377         2258
+CRIPTO_TREND_1%         4.0   cierre 2023-01-01  0.2247  0.7221 -0.4400          0.1468         1939
+CRIPTO_TREND_1%         4.0 exchange 2018-01-01  0.3913  0.9776 -0.5061          0.1762         4209
+CRIPTO_TREND_1%         4.0 exchange 2022-01-01  0.0772  0.3876 -0.5061          0.1746         2318
+CRIPTO_TREND_1%         4.0 exchange 2023-01-01  0.1429  0.5447 -0.5061          0.1908         2020
+CRIPTO_TREND_2%         2.0   cierre 2018-01-01  0.5958  1.1587 -0.5222          0.3101         4507
+CRIPTO_TREND_2%         2.0   cierre 2022-01-01  0.1106  0.4574 -0.5222          0.2962         2390
+CRIPTO_TREND_2%         2.0   cierre 2023-01-01  0.2269  0.6838 -0.5222          0.3159         2085
+CRIPTO_TREND_2%         2.0 exchange 2018-01-01  0.0707  0.3769 -0.8517          0.4770         5456
+CRIPTO_TREND_2%         2.0 exchange 2022-01-01 -0.2100 -0.3988 -0.7608          0.4322         3011
+CRIPTO_TREND_2%         2.0 exchange 2023-01-01 -0.2008 -0.3409 -0.6799          0.5205         2673
+CRIPTO_TREND_2%         3.0   cierre 2018-01-01  0.7195  1.2928 -0.5348          0.2228         4152
+CRIPTO_TREND_2%         3.0   cierre 2022-01-01  0.1856  0.6058 -0.5348          0.2156         2191
+CRIPTO_TREND_2%         3.0   cierre 2023-01-01  0.3067  0.8203 -0.5348          0.2293         1908
+CRIPTO_TREND_2%         3.0 exchange 2018-01-01  0.3793  0.8863 -0.6747          0.2992         4472
+CRIPTO_TREND_2%         3.0 exchange 2022-01-01 -0.0240  0.1443 -0.6206          0.2855         2364
+CRIPTO_TREND_2%         3.0 exchange 2023-01-01  0.0382  0.3001 -0.5959          0.3229         2082
+CRIPTO_TREND_2%         4.0   cierre 2018-01-01  0.6929  1.2560 -0.5277          0.1771         4053
+CRIPTO_TREND_2%         4.0   cierre 2022-01-01  0.1540  0.5425 -0.4749          0.1736         2171
+CRIPTO_TREND_2%         4.0   cierre 2023-01-01  0.2967  0.7953 -0.4750          0.1817         1854
+CRIPTO_TREND_2%         4.0 exchange 2018-01-01  0.4831  1.0127 -0.5823          0.2281         4078
+CRIPTO_TREND_2%         4.0 exchange 2022-01-01  0.0857  0.4053 -0.5823          0.2220         2258
+CRIPTO_TREND_2%         4.0 exchange 2023-01-01  0.1518  0.5378 -0.5823          0.2409         1952
+      PRINCIPAL|cierre  PRINCIPAL|exchange  CRIPTO_TREND_1%|cierre  CRIPTO_TREND_1%|exchange  CRIPTO_TREND_2%|cierre  CRIPTO_TREND_2%|exchange
+2018            -0.069              -0.052                  -0.070                    -0.068                  -0.136                    -0.131
+2019             0.657               0.599                   0.379                     0.231                   0.510                     0.406
+2020             1.024               0.882                   1.899                     1.639                   2.459                     1.673
+2021             0.464               0.549                   8.308                     4.331                  10.795                     5.007
+2022            -0.155              -0.088                  -0.216                    -0.164                  -0.177                    -0.230
+2023             0.328               0.372                   0.744                     0.262                   0.881                     0.362
+2024             0.534              -0.070                   0.388                     0.003                   0.232                    -0.115
+2025            -0.120              -0.038                  -0.036                    -0.167                   0.027                    -0.156
+2026             0.070              -0.029                   0.175                     0.138                   0.191                     0.136
