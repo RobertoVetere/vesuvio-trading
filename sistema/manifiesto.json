@@ -3,7 +3,7 @@
   "version_manifiesto": 1,
   "zona_horaria": "Europe/Madrid",
   "fase": {
-    "actual": 0,
+    "actual": 1,
     "descripcion": {
       "0": "Montaje: estructura, dashboard y vigilancia.",
       "1": "Paper trading en el repo, ejecución nocturna automática.",
@@ -74,6 +74,7 @@
     "La decisión es sobre la última vela cripto cerrada (00:00 UTC): ejecutar antes de la 01:00 Madrid repite la decisión del día anterior (idempotente, no decide nada nuevo)."
   ],
   "pendiente": [
+    "Fijar versiones de codigo/requirements.txt con estado/publico/versiones.txt (en la prueba del 2026-11-24 el autopiloto de PILOTO eligió T20_META para 2026, frente a T55_KONK_META en el sistema anterior; objetivos congelados intactos).",
     "Conectar el repo en Vercel (Roberto, una vez).",
     "Crear las tareas programadas de Claude tras una prueba end-to-end correcta."
   ],

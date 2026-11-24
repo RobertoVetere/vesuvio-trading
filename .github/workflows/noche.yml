@@ -28,7 +28,7 @@ jobs:
       - name: Descargar datos
         if: steps.hecha.outputs.si != '1'
         working-directory: codigo
-        run: pip install -q -r requirements.txt && python descargar.py
+        run: pip install -q -r requirements.txt && pip freeze | grep -iE '^(lightgbm|pandas|numpy|scipy|pyarrow)==' > ../estado/publico/versiones.txt && python descargar.py
       - name: Overlay del día
         if: steps.hecha.outputs.si != '1'
         run: |
