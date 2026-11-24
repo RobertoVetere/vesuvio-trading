@@ -1,0 +1,34 @@
+fecha,tema,lectura,accion
+2026-11-23,Bolsa EEUU,"Mejor día desde abril de 2025: S&P 500 +4,7% y Nasdaq +6,5%; Nvidia +31% tras la vuelta de Jensen Huang como CEO",Sin acción
+2026-11-23,Cripto,"BTC rebota hasta ~64.000 $ y se desinfla a ~61.000 $ en horario EEUU; ETH sube a ~1.800 $ y vuelve a ~1.730 $; flujos de ETF débiles",Sin veto (PRINCIPAL sin posición cripto)
+2026-11-23,Fed y dólar,"El mercado da casi por segura una subida de tipos en diciembre; bono a 2 años ~4,7% y dólar en máximos desde marzo de 2025",Sin acción
+2026-11-23,Agenda,"PCE de octubre el miércoles y semana corta por Acción de Gracias con poca liquidez",Sin acción (evento programado; no justifica veto)
+2026-11-22,Cripto,"BTC cae hasta ~55.000 $ (mínimo de 2 años) y rebota por encima de 60.000 $ tras 1.800 M$ en liquidaciones; miedo extremo",Sin veto (PRINCIPAL sin posición cripto)
+2026-11-22,Bolsa EEUU,"S&P 500 y Dow en corrección y Nasdaq -10% en noviembre por el desplome de Nvidia y chips de IA",Sin acción
+2026-11-22,Fed y tipos,"El mercado empieza a descontar subidas de tipos con la inflación elevada; presión sobre activos de riesgo",Sin acción
+2026-11-22,Agenda,"Semana corta: PCE subyacente y PIB T3 el miércoles; jueves cerrado por Acción de Gracias; resultados de Workday y Deere",Sin acción (evento programado; no justifica veto)
+2026-11-21,Cripto,"BTC toca mínimos de un año cerca de 58.000 $ el sábado; ETH rebota ~2% hasta ~1.650 $; liquidaciones y salidas de ETF",Sin veto (PRINCIPAL sin posición cripto)
+2026-11-21,Bolsa EEUU,"Viernes: Nasdaq -5,3% y S&P 500 en corrección por la venta en chips (Nvidia -14%); VIX ~36",Sin acción
+2026-11-21,Fed y tipos,"Cook (Fed) avisa de quedarse por detrás de la curva y apoya subir; bonos largos suben (TIR bajan) como refugio",Sin acción
+2026-11-21,Agenda,"Miércoles 25: PCE de octubre + PIB T3 + Libro Beige; jueves 26 mercados de EEUU cerrados por Acción de Gracias",Sin acción (evento programado; no justifica veto)
+2026-11-21,Empresas,"Intuit -13% y vende Mailchimp; CrowdStrike negocia comprar Zscaler (ZS +16% tras el cierre)",Sin acción
+2026-11-20,Cripto,"BTC cae a ~61.300 $ (-3,8% en 24 h; -25% en un mes) y ETH a ~1.730 $; miedo extremo",Sin veto (PRINCIPAL sin posición cripto)
+2026-11-20,Bolsa EEUU,"Desplome del Nasdaq (-5,3%) por la venta en IA y tecnología; acciones bitcoin y oro caen a la vez",Sin acción
+2026-11-20,Fed y tipos,"Escenario base: subida de 25 pb el 8-9 dic; ~10% de probabilidad de 50 pb tras Waller y Cook",Sin acción
+2026-11-20,Dólar y macro,"Dólar en máximos del año y USD/JPY cerca de 160; la próxima semana llega el PCE de octubre",Sin acción
+2026-11-19,Cripto,"BTC cae a ~63.500 $ (mínimo desde julio) y ETH también; ventas por apuestas de subida de la Fed",Sin veto (PRINCIPAL sin posición cripto)
+2026-11-19,Fed y tipos,"Actas de la Fed duras refuerzan la apuesta por una subida de tipos en diciembre; Waller abre la puerta a 50 pb",Sin acción
+2026-11-19,Bolsa EEUU,"Dow cae ~1.100 puntos y el S&P 500 encadena 6 sesiones a la baja (-2%); huida del riesgo generalizada",Sin acción
+2026-11-19,Empresas,"Nvidia bate previsiones en su primer informe tras la salida de Jensen Huang pero no frena la caída tecnológica",Sin acción
+2026-11-18,Cripto (prueba),"Presión vendedora persiste en BTC y ETH; ningún evento grave concreto e inminente",Sin veto (PRINCIPAL sin posición cripto)
+2026-11-18,Fed (prueba),"Dos meses tras la primera subida de la Fed; el mercado teme más subidas y castiga la tecnología",Sin acción
+2026-11-18,Bolsa EEUU (prueba),"Futuros apuntan a apertura floja tras Nvidia; Walmart publica hoy",Sin acción
+2026-11-18,Cripto,"BTC cae por el fin del basis trade y salidas de ETF; sentimiento débil antes de las actas de la Fed",Sin veto (PRINCIPAL sin posición cripto)
+2026-11-18,Fed y tipos,"Mercado digiere actas con sesgo de más subidas; rendimientos cortos al alza",Vigilar; sin acción
+2026-11-18,Dólar,"Dólar en máximos de 19 meses por expectativas de tipos; presión sobre activos de riesgo",Sin acción
+2026-11-18,Empresas,"Nvidia publica resultados fuertes pero el Dow cae 561 puntos; dudas sobre el sector IA",Sin acción
+2026-11-18,Actas de la Fed (reunión de octubre),Casi todos los miembros ven apropiadas más subidas de tipos; se debate una subida mayor en diciembre. Sesgo negativo para activos de riesgo y cripto.,Ninguna: la estrategia principal ya está en liquidez
+2026-11-18,Salida a bolsa de Anthropic (ANT),Precio fijado en 83 $ por encima del rango; cotiza desde el 19-nov. Puede absorber dinero de otras tecnológicas a corto plazo. Anthropic es la empresa que me ha creado: lo trato como un dato más.,Ninguna (no está en el universo)
+2026-11-17,Resultados de Nvidia,Ingresos de 115.800 M$ (+103% interanual) y previsión de 130.000 M$; primer informe con consejera delegada interina tras la salida de Jensen Huang.,Ninguna
+2026-11-19,Resultados de Walmart (antes de la apertura),Consenso 0,64 $ por acción; las opciones descuentan un movimiento de ±6%. Termómetro del consumo en EEUU.,Ninguna (no está en el universo)
+2026-11-18,Mercado cripto,BTC un 27% y ETH un 35% por debajo de su máximo de 55 días: no hay tendencia alcista que seguir.,Ninguna: el sistema no compra hasta que haya ruptura

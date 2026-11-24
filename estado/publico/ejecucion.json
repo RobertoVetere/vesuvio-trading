@@ -1,0 +1,31 @@
+{
+ "fecha": "2026-11-24",
+ "ok": true,
+ "decision": "2026-11-23",
+ "datos_hasta": "2026-11-24",
+ "piloto_variante": "T20_META",
+ "principal": {
+  "BTC-USD": {
+   "fecha": "2026-11-23",
+   "precio": 61210.984375,
+   "pos": 0,
+   "unidades": 0,
+   "max_N": 86480.3046875,
+   "min_N": 58798.98046875,
+   "stop": null,
+   "entrada": null,
+   "precio_entrada": null
+  },
+  "ETH-USD": {
+   "fecha": "2026-11-23",
+   "precio": 1708.851318359375,
+   "pos": 0,
+   "unidades": 0,
+   "max_N": 2726.509033203125,
+   "min_N": 1619.43212890625,
+   "stop": null,
+   "entrada": null,
+   "precio_entrada": null
+  }
+ }
+}

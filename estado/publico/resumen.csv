@@ -1,0 +1,5 @@
+estrategia,descripcion,capital_inicial,valor_actual,rentab,posiciones,exposicion
+PRINCIPAL,"Tendencias BTC+ETH, ruptura 55 días, solo largos, riesgo 3%",250,250.0,0.0,0,0.0
+PRINCIPAL_CLAUDE,Principal + vetos de Claude por noticias (solo puede reducir),250,250.0,0.0,0,0.0
+CRIPTO20,"Tendencias 20 criptos, ruptura 55 días, solo largos, riesgo 1%",250,250.0,0.0,0,0.0
+PILOTO,"Piloto automático multiactivo (ETFs + cripto, largo/corto, meta-etiquetado)",10000,10375.29,0.0375,6,1.123
