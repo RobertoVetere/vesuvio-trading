@@ -11,7 +11,7 @@ COST = dict(
     slip_bps={"US": 2, "ETF": 2, "EU": 5, "CRYPTO_MAJOR": 20, "CRYPTO": 25},
     ftt={".MC": 0.002, ".PA": 0.004, ".MI": 0.001, ".L": 0.005},
     borrow={"US": 0.005, "ETF": 0.005, "EU": 0.01, "CRYPTO_MAJOR": 0.05, "CRYPTO": 0.10},
-    margin_rate=0.05, comm_crypto=0.001, min_trade_eur=300.0, rel_band=0.25, max_gross=1.6,
+    margin_rate=0.05, comm_crypto=0.001, stop_gap_frac=0.25, min_trade_eur=300.0, rel_band=0.25, max_gross=1.6,
 )
 
 
@@ -35,7 +35,7 @@ def run(P, W, start, end, capital=10_000.0, record_trades=False, cost_mult=1.0, 
     slip, borrow, ftt, eu_min, is_us, is_eu, is_cr = _vec(P)
     lf = np.zeros(len(P.tradable)) if long_fin is None else np.asarray(long_fin, float)
     # stops: DataFrame (calendario x activos) con el nivel de stop vigente durante cada día (orden en el exchange)
-    SV = None if stops is None else stops.reindex(index=cal, columns=P.tradable).values
+    SV = None if stops is None else stops.reindex(index=P.cal, columns=P.tradable).values
     HIv, LOv = P.Hi.values, P.Lw.values
     is_stock = is_us | is_eu
     cal = P.cal
@@ -87,7 +87,10 @@ def run(P, W, start, end, capital=10_000.0, record_trades=False, cost_mult=1.0, 
             hitS = b & (u < 0) & ~np.isnan(sv) & (hi_ >= np.nan_to_num(sv, nan=np.inf))
             hit = hitL | hitS
             if hit.any():
-                fill = np.where(hitL, np.minimum(o, np.nan_to_num(sv)), np.maximum(o, np.nan_to_num(sv)))
+                svn = np.nan_to_num(sv)
+                # en caídas que atraviesan el stop, la orden se llena peor: una fracción del camino hasta el extremo del día
+                fill = np.where(hitL, np.minimum(o, svn - COST["stop_gap_frac"] * np.maximum(svn - lo_, 0)),
+                                np.maximum(o, svn + COST["stop_gap_frac"] * np.maximum(hi_ - svn, 0)))
                 sp = np.sum(np.where(hit, u * (fill - o) * fxp, 0.0))
                 sn = np.abs(u) * fill * fxp
                 sc = cost_mult * np.where(hit, np.where(is_cr, COST["comm_crypto"] * sn, np.where(is_us, np.clip(0.0035 * np.abs(u), 0.35, 0.01 * np.abs(u) * fill) * fxp, np.maximum(eu_min, 0.0005 * np.abs(u) * fill) * fxp)) + 2 * slip * sn, 0.0)

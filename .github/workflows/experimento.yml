@@ -23,7 +23,7 @@ jobs:
         run: |
           pip install -q -r requirements.txt
           ls data/raw/*.parquet >/dev/null 2>&1 || python descargar.py
-          python "${{ inputs.script }}.py" "../experimentos/${{ inputs.salida }}" | tee "../experimentos_log.txt"
+          set -o pipefail; python "${{ inputs.script }}.py" "../experimentos/${{ inputs.salida }}" | tee "../experimentos_log.txt"
           mv ../experimentos_log.txt "../experimentos/${{ inputs.salida }}/log.txt"
       - name: Commit
         run: |

@@ -40,7 +40,8 @@ def base_trades(P, assets, N=55, stop_mult=3.0, risk=0.005, max_units=3, add_ste
             else:
                 lvl = sv[i]
                 if intraday and lvl == lvl and ((pos > 0 and ll[i] <= lvl) or (pos < 0 and hh[i] >= lvl)):
-                    fill = min(oo[i], lvl) if pos > 0 else max(oo[i], lvl)
+                    g = 0.25  # misma penalización que backtest.COST['stop_gap_frac']
+                    fill = min(oo[i], lvl - g * max(lvl - ll[i], 0)) if pos > 0 else max(oo[i], lvl + g * max(hh[i] - lvl, 0))
                     trades.append((loc.index[ent_i], loc.index[i], a, pos, pos * (fill / ent_px - 1)))
                     pos, units = 0, 0
                     continue
