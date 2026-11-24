@@ -1,0 +1,18 @@
+{
+ "datos_hasta": "2026-11-24",
+ "elecciones": {
+  "2014": "T55_META_CONUS",
+  "2015": "T55_META_CONUS",
+  "2016": "T55_META_CONUS",
+  "2017": "T55_META_CONUS",
+  "2018": "T55_META_CONUS",
+  "2019": "T55_META_CONUS",
+  "2020": "T55_META_CONUS",
+  "2021": "T55_META",
+  "2022": "T20_META",
+  "2023": "T20_META",
+  "2024": "T20_META",
+  "2025": "T20_META",
+  "2026": "T20_META"
+ }
+}
