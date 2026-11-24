@@ -22,3 +22,7 @@ Ensayos: 6 + 3 = 9 (acumulado: 21).
 - **HALLAZGO:** la base (20 actuales + muertas elegidas a mano) tiene sesgo de selección: ninguna regla implementable alcanza su 0,87 en 2022-23.
 - Universo dinámico top-N por liquidez (implementable en real): N=15: 1,03/1,04/0,25 · **N=25: 1,31/1,24/0,58** · N=35: 1,56/1,46/0,48.
 **ADOPTADO:** universo dinámico = las 25 criptos más líquidas cada día (≥20M €/día) entre todas las candidatas. **Nueva referencia honesta: Sharpe 1,31 / 1,24 / 0,58, MaxDD -42 %.**
+
+## Palanca 3 — varias escalas (experimentos/v3_horizontes) — 2026-11-24
+Ensayos: 3 (acumulado: 24). 20+55+100: 1,23/1,19/0,14 · 55+100: 1,14/1,04/0,20 · 20+55: 1,24/1,23/0,18 (ref. 55: 1,31/1,24/0,58).
+**NO adoptado.** Se mantiene ruptura de 55 días.
