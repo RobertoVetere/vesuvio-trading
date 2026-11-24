@@ -3,7 +3,7 @@
  "ok": true,
  "decision": "2026-11-23",
  "datos_hasta": "2026-11-24",
- "piloto_variante": "T55_META",
+ "piloto_variante": "T55_META_CONUS",
  "principal": {
   "BTC-USD": {
    "fecha": "2026-11-23",
@@ -14,7 +14,9 @@
    "min_N": 58798.98046875,
    "stop": null,
    "entrada": null,
-   "precio_entrada": null
+   "precio_entrada": null,
+   "extremo": null,
+   "vol_atr": 1687.6695234615868
   },
   "ETH-USD": {
    "fecha": "2026-11-23",
@@ -25,7 +27,9 @@
    "min_N": 1619.43212890625,
    "stop": null,
    "entrada": null,
-   "precio_entrada": null
+   "precio_entrada": null,
+   "extremo": null,
+   "vol_atr": 64.19270730236215
   }
  }
 }
