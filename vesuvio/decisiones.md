@@ -26,3 +26,14 @@ Ensayos: 6 + 3 = 9 (acumulado: 21).
 ## Palanca 3 — varias escalas (experimentos/v3_horizontes) — 2026-11-24
 Ensayos: 3 (acumulado: 24). 20+55+100: 1,23/1,19/0,14 · 55+100: 1,14/1,04/0,20 · 20+55: 1,24/1,23/0,18 (ref. 55: 1,31/1,24/0,58).
 **NO adoptado.** Se mantiene ruptura de 55 días.
+
+## Palanca 4 — régimen BTC vs media 200 d (experimentos/v4_regimen) — 2026-11-24
+Ensayos: 4 (acumulado: 28). Días bajistas 2018-23: 50 %.
+| Variante | 18-23 | 18-20 | 22-23 | MaxDD |
+|---|---|---|---|---|
+| ref | 1,31 | 1,24 | 0,58 | -42 % |
+| largos x0 en bajista | 1,13 | 0,90 | 0,89 | -45 % |
+| largos x0,5 | 1,26 | 1,15 | 0,57 | -44 % |
+| x0 + cortos BTC/ETH | 1,21 | 1,11 | 1,12 | -46 % |
+| **x0,5 + cortos BTC/ETH** | **1,33** | **1,33** | **0,86** | -44 % |
+**ADOPTADO:** en bajista (BTC < media 200 d) largos al 50 % + cortos BTC/ETH (ruptura 55, riesgo 2 %, tope 50 %). Requiere futuros de Kraken.
