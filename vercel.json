@@ -1,0 +1,7 @@
+{
+  "buildCommand": "bash dashboard/build.sh",
+  "outputDirectory": "public",
+  "framework": null,
+  "installCommand": "true",
+  "headers": [{ "source": "/(.*)", "headers": [{ "key": "Cache-Control", "value": "no-cache" }] }]
+}

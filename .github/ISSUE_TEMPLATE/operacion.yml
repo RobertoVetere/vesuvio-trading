@@ -1,0 +1,22 @@
+name: Operación MI_PRACTICA
+description: Propón una operación para tu cartera de práctica (1.000 € ficticios)
+labels: [operacion]
+body:
+  - type: input
+    id: activo
+    attributes: { label: "Activo (ticker de Yahoo)" , placeholder: "AAPL, BTC-USD, SAN.MC…" }
+    validations: { required: true }
+  - type: dropdown
+    id: lado
+    attributes: { label: "Lado" , options: [compra, venta] }
+    validations: { required: true }
+  - type: input
+    id: importe
+    attributes: { label: "Importe en €" , placeholder: "200" }
+    validations: { required: true }
+  - type: input
+    id: stop
+    attributes: { label: "Stop (precio o %)" , placeholder: "-8%" }
+  - type: textarea
+    id: porque
+    attributes: { label: "¿Por qué?" }

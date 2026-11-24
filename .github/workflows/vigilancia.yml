@@ -1,0 +1,29 @@
+name: vigilancia
+on:
+  schedule:
+    - cron: "30 22 * * *"   # 23:30 Madrid (invierno)
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  comprobar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: ¿Hubo ejecución nocturna hoy?
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          HOY=$(TZ=Europe/Madrid date +%F)
+          F=estado/ultima_ejecucion.json
+          FECHA=$(jq -r '.fecha // ""' $F 2>/dev/null || echo "")
+          OK=$(jq -r '.ok // false' $F 2>/dev/null || echo false)
+          FASE=$(jq -r '.fase.actual' sistema/manifiesto.json)
+          if [ "$FASE" = "0" ]; then echo "Fase 0: vigilancia en seco ($FECHA, ok=$OK)"; exit 0; fi
+          if [ "$FECHA" = "$HOY" ] && [ "$OK" = "true" ]; then echo "OK $HOY"; exit 0; fi
+          gh label create fallo --color B60205 2>/dev/null || true
+          ABIERTO=$(gh issue list --label fallo --state open --json number -q '.[0].number')
+          MSG="Vigilancia $HOY: última ejecución fecha='$FECHA' ok=$OK. La tarea de la mañana debe revisarlo."
+          if [ -n "$ABIERTO" ]; then gh issue comment "$ABIERTO" --body "$MSG"
+          else gh issue create --title "🔴 Fallo nocturno $HOY" --label fallo --body "$MSG"; fi

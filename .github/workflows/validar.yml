@@ -1,0 +1,10 @@
+name: validar
+on: [push]
+jobs:
+  json:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: JSON válidos
+        run: |
+          for f in $(git ls-files "*.json"); do jq empty "$f" || { echo "JSON roto: $f"; exit 1; }; done

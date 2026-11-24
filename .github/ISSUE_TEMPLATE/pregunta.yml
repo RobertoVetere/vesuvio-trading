@@ -1,0 +1,8 @@
+name: Pregunta
+description: Pregunta lo que quieras sobre el sistema o el trading
+labels: [pregunta]
+body:
+  - type: textarea
+    id: pregunta
+    attributes: { label: "Tu pregunta" }
+    validations: { required: true }

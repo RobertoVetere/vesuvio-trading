@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14110f">
+<title>Vesuvio Trading</title>
+<style>
+:root{--bg:#14110f;--panel:#1d1916;--line:#2e2823;--txt:#efe7df;--dim:#9c9087;--lava:#ff6a2b;--up:#3fbf7f;--down:#ef5350;--r:14px}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{padding:18px 16px 8px;padding-top:max(18px,env(safe-area-inset-top))}
+h1{margin:0;font-size:20px;letter-spacing:.3px}h1 span{color:var(--lava)}
+.sub{color:var(--dim);font-size:13px;margin-top:2px}
+main{padding:8px 12px 96px;max-width:960px;margin:0 auto}
+section{display:none}section.on{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px}
+.card .n{font-size:12px;color:var(--dim);text-transform:uppercase;letter-spacing:.6px}
+.card .v{font-size:22px;font-weight:650;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.up{color:var(--up)}.down{color:var(--down)}
+h2{font-size:15px;margin:20px 4px 10px;color:var(--dim);font-weight:600}
+.chart{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:10px}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--dim);margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.list .row{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;display:flex;justify-content:space-between;gap:10px}
+.row b{font-size:15px}.row small{color:var(--dim);display:block;font-size:12px}
+.row .r{text-align:right;font-variant-numeric:tabular-nums}
+.bar{height:5px;background:var(--line);border-radius:3px;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--lava)}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 10px}
+.chip{border:1px solid var(--line);background:none;color:var(--dim);border-radius:20px;padding:5px 11px;font-size:13px;white-space:nowrap}
+.chip.on{border-color:var(--lava);color:var(--txt)}
+.empty{color:var(--dim);text-align:center;padding:40px 12px;border:1px dashed var(--line);border-radius:var(--r)}
+.md{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:4px 16px 14px}
+.md h1,.md h2,.md h3{color:var(--txt);margin:16px 0 6px}.md h1{font-size:19px}.md h2{font-size:16px}.md h3{font-size:15px;color:var(--lava)}
+.md ul{padding-left:20px;margin:6px 0}.md p{margin:8px 0}
+select{background:var(--panel);color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:8px;width:100%;margin-bottom:10px;font-size:15px}
+nav{position:fixed;bottom:0;left:0;right:0;background:rgba(20,17,15,.94);backdrop-filter:blur(10px);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:6px 4px max(6px,env(safe-area-inset-bottom))}
+nav button{background:none;border:0;color:var(--dim);font-size:11px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 6px;flex:1}
+nav button svg{width:22px;height:22px}nav button.on{color:var(--lava)}
+</style>
+</head>
+<body>
+<header><h1><span>▲</span> Vesuvio Trading</h1><div class="sub" id="fecha">Cargando…</div></header>
+<main>
+  <section id="resumen" class="on">
+    <div class="grid" id="cards"></div>
+    <h2>NAV (base 100)</h2>
+    <div class="chart"><svg id="nav" viewBox="0 0 600 260" width="100%"></svg><div class="legend" id="leg"></div></div>
+  </section>
+  <section id="posiciones"><div class="chips" data-for="pos"></div><div class="list" id="pos"></div></section>
+  <section id="oportunidades"><div class="sub" style="margin:0 4px 10px">Distancia al máximo de 55 días: cuanto más cerca de 0 %, más cerca de la señal de ruptura.</div><div class="chips" data-for="opo"></div><div class="list" id="opo"></div></section>
+  <section id="operaciones"><div class="chips" data-for="ops"></div><div class="list" id="ops"></div><h2>Noticias</h2><div class="list" id="not"></div></section>
+  <section id="diario"><select id="dsel"></select><div class="md" id="dtxt"></div></section>
+</main>
+<nav id="tabs">
+  <button data-t="resumen" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/></svg>Resumen</button>
+  <button data-t="posiciones"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/></svg>Posiciones</button>
+  <button data-t="oportunidades"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>Rupturas</button>
+  <button data-t="operaciones"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h13l-3-3M17 17H4l3 3"/></svg>Operaciones</button>
+  <button data-t="diario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h11a3 3 0 013 3v13H8a3 3 0 01-3-3z"/><path d="M9 8h6M9 12h6"/></svg>Diario</button>
+</nav>
+<script>
+const COL={PRINCIPAL:"#ff6a2b",PRINCIPAL_CLAUDE:"#ffb547",CRIPTO20:"#5aa9ff",PILOTO:"#b98cff",MI_PRACTICA:"#3fbf7f"};
+const col=n=>COL[n]||"#9c9087";
+const eur=v=>v==null||isNaN(v)?"–":Number(v).toLocaleString("es-ES",{style:"currency",currency:"EUR",maximumFractionDigits:0});
+const pct=v=>v==null||isNaN(v)?"–":(v>0?"+":"")+Number(v).toLocaleString("es-ES",{maximumFractionDigits:2})+" %";
+const cls=v=>v>0?"up":v<0?"down":"";
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const empty=t=>`<div class="empty">${t}</div>`;
+
+async function get(p,json){try{const r=await fetch(p,{cache:"no-store"});if(!r.ok)return null;return json?await r.json():await r.text()}catch(e){return null}}
+function csv(t){if(!t)return[];const rows=[];let row=[],f="",q=false;for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c=='"'&&t[i+1]=='"'){f+='"';i++}else if(c=='"')q=false;else f+=c}else if(c=='"')q=true;else if(c==","){row.push(f);f=""}else if(c=="\n"){row.push(f);rows.push(row);row=[];f=""}else if(c!="\r")f+=c}if(f||row.length){row.push(f);rows.push(row)}const h=rows.shift()||[];return rows.filter(r=>r.length>1).map(r=>Object.fromEntries(h.map((k,i)=>[k,r[i]])))}
+
+function chips(id,rows,render){const box=document.querySelector(`[data-for=${id}]`);const est=["Todas",...new Set(rows.map(r=>r.estrategia).filter(Boolean))];let sel="Todas";const draw=()=>{box.innerHTML=est.map(e=>`<button class="chip ${e==sel?"on":""}">${esc(e)}</button>`).join("");box.querySelectorAll("button").forEach((b,i)=>b.onclick=()=>{sel=est[i];draw()});render(sel=="Todas"?rows:rows.filter(r=>r.estrategia==sel))};draw()}
+
+function navChart(rows){const svg=document.getElementById("nav"),leg=document.getElementById("leg");if(!rows.length){svg.outerHTML=empty("Sin histórico de NAV todavía");return}
+ const by={};rows.forEach(r=>{(by[r.estrategia]??=[]).push([r.fecha,+r.nav])});const fechas=[...new Set(rows.map(r=>r.fecha))].sort();
+ const series=Object.entries(by).map(([n,a])=>{a.sort((x,y)=>x[0]<y[0]?-1:1);const b=a[0][1]||1;return[n,a.map(([f,v])=>[fechas.indexOf(f),v/b*100])]});
+ const all=series.flatMap(s=>s[1].map(p=>p[1]));let lo=Math.min(...all),hi=Math.max(...all);if(hi-lo<1){hi+=1;lo-=1}
+ const W=600,H=260,P=34,X=i=>P+(W-P-8)*(fechas.length<2?0.5:i/(fechas.length-1)),Y=v=>10+(H-40)*(1-(v-lo)/(hi-lo));
+ let g="";for(let k=0;k<=4;k++){const v=lo+(hi-lo)*k/4;g+=`<line x1="${P}" x2="${W-8}" y1="${Y(v)}" y2="${Y(v)}" stroke="#2e2823"/><text x="${P-6}" y="${Y(v)+4}" fill="#9c9087" font-size="11" text-anchor="end">${v.toFixed(0)}</text>`}
+ g+=`<text x="${P}" y="${H-6}" fill="#9c9087" font-size="11">${fechas[0]}</text><text x="${W-8}" y="${H-6}" fill="#9c9087" font-size="11" text-anchor="end">${fechas.at(-1)}</text>`;
+ series.forEach(([n,p])=>{g+=`<polyline fill="none" stroke="${col(n)}" stroke-width="2.2" stroke-linejoin="round" points="${p.map(([i,v])=>X(i)+","+Y(v)).join(" ")}"/>`});
+ svg.innerHTML=g;leg.innerHTML=series.map(([n])=>`<span><i style="background:${col(n)}"></i>${esc(n)}</span>`).join("")}
+
+function md(t){const lines=esc(t).split("\n");let h="",ul=false;const inl=s=>s.replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/\*(.+?)\*/g,"<i>$1</i>").replace(/`(.+?)`/g,"<code>$1</code>");
+ for(const l of lines){const m=l.match(/^(#{1,3})\s+(.*)/);if(/^\s*[-*]\s+/.test(l)){if(!ul){h+="<ul>";ul=true}h+=`<li>${inl(l.replace(/^\s*[-*]\s+/,""))}</li>`;continue}if(ul){h+="</ul>";ul=false}if(m)h+=`<h${m[1].length}>${inl(m[2])}</h${m[1].length}>`;else if(l.trim())h+=`<p>${inl(l)}</p>`}return h+(ul?"</ul>":"")}
+
+async function main(){
+ const [res,nav,pos,opo,ops,not,idx]=await Promise.all([get("estado/publico/resumen.json",1),get("estado/publico/nav.csv"),get("estado/publico/posiciones.csv"),get("estado/publico/oportunidades.csv"),get("estado/publico/operaciones.csv"),get("estado/publico/noticias.csv"),get("diario/indice.json",1)]);
+ document.getElementById("fecha").textContent=res?.fecha?`Datos al ${new Date(res.fecha+"T12:00").toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"})}`:"Sin ejecución todavía";
+ const c=document.getElementById("cards");c.innerHTML=res?.estrategias?.length?res.estrategias.map(e=>`<div class="card" style="border-top:3px solid ${col(e.nombre)}"><div class="n">${esc(e.nombre)}</div><div class="v">${eur(e.valor)}</div><div class="${cls(e.rentabilidad_pct)}">${pct(e.rentabilidad_pct)} total</div><div class="sub ${cls(e.rentabilidad_dia_pct)}">${pct(e.rentabilidad_dia_pct)} hoy · ${e.n_posiciones??0} pos.</div></div>`).join(""):empty("Aún no hay resultados. Aparecerán tras la primera ejecución nocturna.");
+ navChart(csv(nav));
+ chips("pos",csv(pos),r=>document.getElementById("pos").innerHTML=r.length?r.map(p=>`<div class="row"><div><b>${esc(p.activo)}</b><small>${esc(p.estrategia)} · desde ${esc(p.fecha_entrada)}</small><small>entrada ${esc(p.precio_entrada)} · stop ${esc(p.stop)}</small></div><div class="r"><b>${eur(+p.valor)}</b><small class="${cls(+p.pnl_pct)}">${pct(+p.pnl_pct)}</small></div></div>`).join(""):empty("Sin posiciones abiertas"));
+ const O=csv(opo).sort((a,b)=>Math.abs(a.distancia_pct)-Math.abs(b.distancia_pct));
+ chips("opo",O,r=>document.getElementById("opo").innerHTML=r.length?r.map(o=>{const d=Math.abs(+o.distancia_pct);return`<div class="row" style="display:block"><div style="display:flex;justify-content:space-between"><div><b>${esc(o.activo)}</b><small>${esc(o.estrategia)} · máx. 55d ${esc(o.maximo_55d)}</small></div><div class="r"><b>${pct(+o.distancia_pct)}</b><small>precio ${esc(o.precio)}</small></div></div><div class="bar"><i style="width:${Math.max(4,100-d*10)}%"></i></div></div>`}).join(""):empty("Sin oportunidades calculadas"));
+ const OP=csv(ops).reverse();
+ chips("ops",OP,r=>document.getElementById("ops").innerHTML=r.length?r.slice(0,100).map(o=>`<div class="row"><div><b class="${o.lado=="compra"?"up":"down"}">${esc(o.lado)} ${esc(o.activo)}</b><small>${esc(o.estrategia)} · ${esc(o.fecha)}</small><small>${esc(o.motivo)}</small></div><div class="r"><b>${esc(o.cantidad)}</b><small>@ ${esc(o.precio)}</small></div></div>`).join(""):empty("Sin operaciones todavía"));
+ const N=csv(not).reverse().slice(0,40);document.getElementById("not").innerHTML=N.length?N.map(n=>`<div class="row"><div><b>${esc(n.activo)}</b> <small>${esc(n.fecha)} · ${esc(n.fuente)}</small><div>${esc(n.titular)}</div></div><div class="r"><small>${esc(n.impacto)}</small></div></div>`).join(""):empty("Sin noticias");
+ const sel=document.getElementById("dsel"),dt=document.getElementById("dtxt");
+ if(idx?.length){sel.innerHTML=idx.map(d=>`<option>${esc(d)}</option>`).join("");const load=async()=>dt.innerHTML=md(await get(`diario/${sel.value}.md`)||"No se pudo cargar la nota.");sel.onchange=load;load()}else{sel.style.display="none";dt.innerHTML=empty("El diario empieza con la primera noche.")}
+}
+document.querySelectorAll("#tabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll("#tabs button,section").forEach(e=>e.classList.remove("on"));b.classList.add("on");document.getElementById(b.dataset.t).classList.add("on");scrollTo(0,0)});
+main();
+</script>
+</body>
+</html>
