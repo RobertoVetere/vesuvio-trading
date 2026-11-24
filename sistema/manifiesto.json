@@ -72,10 +72,10 @@
   "fallos_conocidos": [
     "Yahoo devuelve HTTP 429 desde el entorno de Claude (comprobado 2026-11-24): los datos se descargan en GitHub Actions.",
     "gh auth status dice token inválido en el entorno de Claude, pero gh api funciona a través del proxy.",
-    "La decisión es sobre la última vela cripto cerrada (00:00 UTC): ejecutar antes de la 01:00 Madrid repite la decisión del día anterior (idempotente, no decide nada nuevo)."
+    "La decisión es sobre la última vela cripto cerrada (00:00 UTC): ejecutar antes de la 01:00 Madrid repite la decisión del día anterior (idempotente, no decide nada nuevo).",
+    "2026-11-24: versiones fijadas en codigo/requirements.txt. El autopiloto de PILOTO elige T20_META para 2026 con ellas (el sistema anterior elegía T55_KONK_META, versiones desconocidas). PILOTO conserva sus objetivos congelados del sistema anterior; PILOTO_REAL nace ya con T20_META."
   ],
   "pendiente": [
-    "Fijar versiones de codigo/requirements.txt con estado/publico/versiones.txt (en la prueba del 2026-11-24 el autopiloto de PILOTO eligió T20_META para 2026, frente a T55_KONK_META en el sistema anterior; objetivos congelados intactos).",
     "Conectar el repo en Vercel (Roberto, una vez).",
     "Crear las tareas programadas de Claude tras una prueba end-to-end correcta.",
     "Ejecutor real: IBKR (IB Gateway en VPS, cuenta Pro + paper) para acciones/ETF-CFD y Kraken (API REST) para cripto al contado. Requiere cuentas de Roberto."
