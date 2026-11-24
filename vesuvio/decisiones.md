@@ -66,3 +66,9 @@ Sharpe deflactado del diseño (34 ensayos): 0,876 (no llega a 0,95).
 La estrategia más robusta en todos los periodos es PRINCIPAL (BTC+ETH, ruptura 55, solo largos): diseño 0,98 / final 0,63, MaxDD -31/-33 %,
 sin sesgo de supervivencia, pocas operaciones (91 en 3 años) y la más barata. Candidata para dinero real.
 No se vuelve a usar 2024-2026 para elegir nada: cualquier ajuste nuevo necesita meses de papel.
+
+## Reglas de eventos: hackeos (experimentos/hackeos) — 2026-11-24
+Datos: DeFiLlama, 1.376 hackeos (1.278 asignados al token de su cadena; 59 >= 100M$). Diseño 2018-2023. 4 variantes.
+- CRIPTO_TREND: las 4 variantes empeoran o empatan (2022-23: 0,52-0,55 vs 0,58). NO.
+- PRINCIPAL: vetar entradas empeora; "salir + vetar 7 d" mejora 2018-23 (1,04 vs 1,01) y 2022-23 (0,54 vs 0,39) pero empeora 2018-20; afecta a ~8 operaciones → ruido. NO.
+Conclusión: los hackeos no dan una regla mecánica útil. El valor de los eventos se mide en vivo con PRINCIPAL_CLAUDE (criterio caso a caso).
