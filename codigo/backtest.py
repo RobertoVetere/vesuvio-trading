@@ -11,7 +11,7 @@ COST = dict(
     slip_bps={"US": 2, "ETF": 2, "EU": 5, "CRYPTO_MAJOR": 20, "CRYPTO": 25},
     ftt={".MC": 0.002, ".PA": 0.004, ".MI": 0.001, ".L": 0.005},
     borrow={"US": 0.005, "ETF": 0.005, "EU": 0.01, "CRYPTO_MAJOR": 0.05, "CRYPTO": 0.10},
-    margin_rate=0.05, min_trade_eur=300.0, rel_band=0.25, max_gross=1.6,
+    margin_rate=0.05, comm_crypto=0.001, min_trade_eur=300.0, rel_band=0.25, max_gross=1.6,
 )
 
 
@@ -72,7 +72,7 @@ def run(P, W, start, end, capital=10_000.0, record_trades=False, cost_mult=1.0, 
         loc_notional = np.abs(du) * o
         comm_us = np.clip(0.0035 * np.abs(du), 0.35, 0.01 * loc_notional) * fxp
         comm_eu = np.maximum(eu_min, 0.0005 * loc_notional) * fxp
-        comm_cr = 0.001 * notional
+        comm_cr = COST["comm_crypto"] * notional
         comm = np.where(is_us, comm_us, np.where(is_eu, comm_eu, comm_cr))
         cost = cost_mult * np.where(do, comm + slip * notional + np.where(du > 0, ftt * notional, 0.0), 0.0)
         tc = cost.sum()
