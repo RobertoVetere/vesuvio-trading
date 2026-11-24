@@ -23,8 +23,9 @@ Experimento de trading sistemático de Roberto. Claude lo opera cada noche; Robe
 - Commits con mensaje `noche AAAA-MM-DD: …` o `fix: …`.
 
 ## Ejecución real (fase 2+): obligatorio
-- Toda posición real lleva su **stop puesto como orden en el exchange** en el mismo ciclo en que se abre. Nunca un stop que dependa de la ejecución nocturna.
-- Si no se puede colocar el stop, se cierra la posición y se abre un issue `fallo`.
+- Stop normal: se evalúa al cierre diario (medido: los stops intradía empeoran por las mechas, ver experimentos/stops).
+- Además, toda posición real lleva una **red de seguridad como orden de stop en el exchange a 8x vol** (`red_mult=8`), colocada en el mismo ciclo en que se abre, contra desplomes extremos.
+- Si no se puede colocar la red, se cierra la posición y se abre un issue `fallo`.
 - Entradas con órdenes limitadas (creador) salvo salidas por stop.
 
 ## Issues

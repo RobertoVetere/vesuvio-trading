@@ -74,7 +74,7 @@
     "gh auth status dice token inválido en el entorno de Claude, pero gh api funciona a través del proxy.",
     "La decisión es sobre la última vela cripto cerrada (00:00 UTC): ejecutar antes de la 01:00 Madrid repite la decisión del día anterior (idempotente, no decide nada nuevo).",
     "2026-11-24: versiones fijadas en codigo/requirements.txt. El autopiloto de PILOTO elige T20_META para 2026 con ellas (el sistema anterior elegía T55_KONK_META, versiones desconocidas). PILOTO conserva sus objetivos congelados del sistema anterior; PILOTO_REAL nace ya con T20_META.",
-    "Los stops de paper.py/backtest se revisan una vez al día (al cierre) y se ejecutan en la apertura siguiente: válido para simular, inaceptable con dinero real. El ejecutor DEBE colocar stops como órdenes en el exchange (ver CLAUDE.md)."
+    "Los stops de la estrategia se evalúan al cierre diario (00:00 UTC): está medido que es MEJOR que stops intradía en cripto. Con dinero real: stop normal al cierre (lo ejecuta el ejecutor tras el cierre) + red de seguridad en el exchange a 8x vol contra desplomes extremos (ver CLAUDE.md)."
   ],
   "pendiente": [
     "Conectar el repo en Vercel (Roberto, una vez).",
@@ -85,6 +85,8 @@
   "experimentos": {
     "experimentos/piloto_real/": "2026-11-24: ORIGINAL vs variantes IBKR desde 2014. Sin cortos cripto: CAGR 18,6 %, Sharpe 0,74, MaxDD -49 %. Sin cripto: CAGR 3 %. El motor es cripto largo.",
     "experimentos/cripto/": "2026-11-24: añadir 18 monedas muertas (LUNC, FTT, EOS...) NO empeora: las tendencias capturan sus subidas y salen por stop.",
-    "experimentos/kraken/": "2026-11-24: condiciones reales Kraken (sin apalancamiento, 0,40 %/0,25 %, con muertas). Desde 2022: CRIPTO_TREND_1% CAGR 17-22 %, Sharpe 0,60-0,71, MaxDD -46 %; PRINCIPAL CAGR 10-12 %, Sharpe 0,53-0,60, MaxDD -33 %. Capital 1k o 10k da igual. Órdenes limitadas (creador) mejoran mucho."
+    "experimentos/kraken/": "2026-11-24: condiciones reales Kraken (sin apalancamiento, 0,40 %/0,25 %, con muertas). Desde 2022: CRIPTO_TREND_1% CAGR 17-22 %, Sharpe 0,60-0,71, MaxDD -46 %; PRINCIPAL CAGR 10-12 %, Sharpe 0,53-0,60, MaxDD -33 %. Capital 1k o 10k da igual. Órdenes limitadas (creador) mejoran mucho.",
+    "experimentos/stops/": "2026-11-24: stops intradía (orden en exchange a 2/3/4x vol) EMPEORAN todo: las mechas sacan y se reentra más caro. CRIPTO_TREND_1% 3x desde 2022: cierre 16,8 %/-46 % vs exchange 0 %/-54 %.",
+    "experimentos/red/": "2026-11-24: stop al cierre + red de seguridad en exchange a 8x vol ≈ neutral (desde 2022: 16,2 % vs 16,8 %, MaxDD igual). 5x/6x peor. La protección real contra desplomes la da el tamaño de posición (riesgo 1 %, tope 25 %): peor día de cartera -15 %."
   }
 }
