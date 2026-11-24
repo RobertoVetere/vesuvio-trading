@@ -1,0 +1,13 @@
+{
+  "modo": "prueba",
+  "_modo": "prueba = calcula y VALIDA órdenes en Kraken (validate=true) sin enviarlas; real = las envía. Solo Roberto cambia esto.",
+  "estrategia": "PRINCIPAL",
+  "pares": {"BTC-USD": "XBTEUR", "ETH-USD": "ETHEUR"},
+  "capital_max_eur": 1000,
+  "orden_max_eur": 700,
+  "perdida_diaria_max_pct": 10,
+  "red_mult": 8,
+  "capital_simulado_eur": 1000,
+  "_capital_simulado_eur": "solo si no hay claves: cartera ficticia para probar el cálculo",
+  "caducidad_orden_seg": 82800
+}

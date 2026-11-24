@@ -62,7 +62,8 @@ def base_trades(P, assets, N=55, stop_mult=3.0, risk=0.005, max_units=3, add_ste
         LAST_STATE[a] = dict(fecha=str(loc.index[i].date()), precio=float(c[i]), pos=int(pos), unidades=int(units),
                              max_N=float(hi[i]) if hi[i] == hi[i] else None, min_N=float(lo[i]) if lo[i] == lo[i] else None,
                              stop=(float(ext - stop_mult * atr[i]) if pos > 0 else float(ext + stop_mult * atr[i])) if pos else None,
-                             entrada=str(loc.index[ent_i].date()) if pos else None, precio_entrada=float(ent_px) if pos else None)
+                             entrada=str(loc.index[ent_i].date()) if pos else None, precio_entrada=float(ent_px) if pos else None,
+                             extremo=float(ext) if pos else None, vol_atr=float(atr[i]) if atr[i] == atr[i] else None)
         if pos:  # operación abierta al final: se registra sin resultado
             trades.append((loc.index[ent_i], pd.NaT, a, pos, np.nan))
         W[a] = pd.Series(w, loc.index).reindex(P.cal).ffill().fillna(0.0)

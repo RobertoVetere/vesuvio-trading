@@ -41,6 +41,17 @@ jobs:
         run: |
           python paper.py ../estado/state.json ../estado/overlay.json out > salida.json
           python publicar.py out salida.json
+      - name: Ejecutor Kraken (modo según ejecutor/limites.json)
+        id: ejecutor
+        if: steps.hecha.outputs.si != '1'
+        continue-on-error: true
+        env: { KRAKEN_KEY: "${{ secrets.KRAKEN_KEY }}", KRAKEN_SECRET: "${{ secrets.KRAKEN_SECRET }}" }
+        run: python ejecutor/ejecutor.py
+      - name: Aviso del ejecutor
+        if: steps.ejecutor.outcome == 'failure'
+        run: |
+          gh label create fallo --color B60205 2>/dev/null || true
+          gh issue create --title "🔴 Ejecutor Kraken $(date +%F)" --label fallo --body "El ejecutor falló o activó PARADO. Ver estado/ejecutor/ultimo.json y $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
       - name: Commit
         if: steps.hecha.outputs.si != '1'
         run: |
