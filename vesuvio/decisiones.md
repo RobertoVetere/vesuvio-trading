@@ -53,3 +53,16 @@ VESUVIO = ruptura 55 días, solo largos, riesgo 1 %/posición, hasta 3 unidades,
 + exposición total ≤ 1 (sin apalancamiento) + red de seguridad en el exchange a 8x vol.
 Diseño 2018-2023: Sharpe 1,33 / 1,33 / 0,86, MaxDD -44 %. 34 variantes probadas.
 Código: codigo/vesuvio_estrategia.py (pesos, sin meta) + codigo/vesuvio_base.py.
+
+## PRUEBA FINAL 2024-01-01 → 2026-11-24 (experimentos/final) — RESULTADO
+| Estrategia | CAGR | Sharpe | MaxDD | Costes/año |
+|---|---|---|---|---|
+| VESUVIO | 5,7 % | 0,33 | -44 % | 13,7 % |
+| CRIPTO20 actual | 9,9 % | 0,45 | -41 % | 14,8 % |
+| **PRINCIPAL (BTC+ETH)** | **13,6 %** | **0,63** | **-33 %** | 8,0 % |
+| BTC comprar y mantener | 13,8 % | 0,51 | -52 % | — |
+Sharpe deflactado del diseño (34 ensayos): 0,876 (no llega a 0,95).
+**VEREDICTO: VESUVIO NO SUPERA LA PRUEBA FINAL.** Sus mejoras de diseño no se sostienen fuera de muestra.
+La estrategia más robusta en todos los periodos es PRINCIPAL (BTC+ETH, ruptura 55, solo largos): diseño 0,98 / final 0,63, MaxDD -31/-33 %,
+sin sesgo de supervivencia, pocas operaciones (91 en 3 años) y la más barata. Candidata para dinero real.
+No se vuelve a usar 2024-2026 para elegir nada: cualquier ajuste nuevo necesita meses de papel.
