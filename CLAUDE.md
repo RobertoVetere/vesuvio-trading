@@ -22,6 +22,11 @@ Experimento de trading sistemático de Roberto. Claude lo opera cada noche; Robe
 - No gastes tokens: no leas CSV enteros si basta con `tail`; no regeneres el dashboard salvo que se pida.
 - Commits con mensaje `noche AAAA-MM-DD: …` o `fix: …`.
 
+## Ejecución real (fase 2+): obligatorio
+- Toda posición real lleva su **stop puesto como orden en el exchange** en el mismo ciclo en que se abre. Nunca un stop que dependa de la ejecución nocturna.
+- Si no se puede colocar el stop, se cierra la posición y se abre un issue `fallo`.
+- Entradas con órdenes limitadas (creador) salvo salidas por stop.
+
 ## Issues
 - Etiqueta `operacion`: Roberto propone una operación para MI_PRACTICA → simular, responder con feedback (tamaño, stop, encaje con la estrategia, qué habría hecho Claude), cerrar o dejar abierta.
 - Etiqueta `pregunta`: contestar en español, nivel principiante, y cerrar.
