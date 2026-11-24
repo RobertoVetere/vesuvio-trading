@@ -14,3 +14,11 @@ Ensayos: 2 (unidades) x 2 (comisión) x 3 (banda) = 12.
 | 1 unidad (sin piramidar) | peor en todos | | | | |
 | Sin reajustes (solo entrar/salir) | peor en todos | | | | |
 **ADOPTADO:** banda de no-reajuste 50 % + entradas con órdenes limitadas (creador). Se mantiene piramidar hasta 3 unidades.
+
+## Palanca 2 — universo (experimentos/v2_universo, v2b_topn) — 2026-11-24
+Ensayos: 6 + 3 = 9 (acumulado: 21).
+- Universo amplio (~37 operables): mejor en 2018-20 (1,46) pero peor en 2022-23 (0,53, MaxDD -49 %). NO adoptado.
+- Liquidez mínima 50M €: peor en todo. Se mantiene 20M €.
+- **HALLAZGO:** la base (20 actuales + muertas elegidas a mano) tiene sesgo de selección: ninguna regla implementable alcanza su 0,87 en 2022-23.
+- Universo dinámico top-N por liquidez (implementable en real): N=15: 1,03/1,04/0,25 · **N=25: 1,31/1,24/0,58** · N=35: 1,56/1,46/0,48.
+**ADOPTADO:** universo dinámico = las 25 criptos más líquidas cada día (≥20M €/día) entre todas las candidatas. **Nueva referencia honesta: Sharpe 1,31 / 1,24 / 0,58, MaxDD -42 %.**
