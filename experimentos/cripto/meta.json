@@ -1,0 +1,23 @@
+{
+ "datos_hasta": "2026-11-24",
+ "muertas_incluidas": [
+  "LUNC-USD",
+  "FTT-USD",
+  "EOS-USD",
+  "XEM-USD",
+  "IOTA-USD",
+  "DASH-USD",
+  "NEO-USD",
+  "WAVES-USD",
+  "BSV-USD",
+  "ZEC-USD",
+  "XMR-USD",
+  "QTUM-USD",
+  "ICX-USD",
+  "OMG-USD",
+  "LSK-USD",
+  "BTG-USD",
+  "CEL-USD",
+  "BTT-USD"
+ ]
+}
