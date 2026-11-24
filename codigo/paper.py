@@ -39,8 +39,13 @@ Wp = principal(); st_principal = {a: TR.LAST_STATE[a] for a in ["BTC-USD", "ETH-
 TR.LAST_STATE.clear()
 W20 = cripto20(); st20 = dict(TR.LAST_STATE)
 Wpil = piloto()
+# PILOTO_REAL: lo operable por un particular en España (IBKR + Kraken): sin cortos en cripto; ETF de EEUU vía CFD (financiación de largos)
+CRM = [t for t in P.tradable if P.cls[t] == "CRYPTO"]
+Wreal = Wpil.copy(); Wreal[CRM] = Wreal[CRM].clip(lower=0)
+LF_REAL = np.array([0.035 if P.cls[t] == "ETF" else 0.0 for t in P.tradable])
+S["estrategias"].setdefault("PILOTO_REAL", {"capital": 10000, "descripcion": "PILOTO ejecutable en España: sin cortos cripto, ETF vía CFD (IBKR) y cripto al contado (Kraken)", "objetivos": {}})
 overlay = json.loads(overlay_p.read_text()) if overlay_p.exists() else []
-today_targets = {"PRINCIPAL": Wp.loc[d], "CRIPTO20": W20.loc[d], "PILOTO": Wpil.loc[d]}
+today_targets = {"PRINCIPAL": Wp.loc[d], "CRIPTO20": W20.loc[d], "PILOTO": Wpil.loc[d], "PILOTO_REAL": Wreal.loc[d]}
 # Principal + Claude: solo puede reducir (vetar entradas o adelantar salidas), nunca añadir riesgo
 wc = Wp.loc[d].copy()
 prev = S["estrategias"]["PRINCIPAL_CLAUDE"]["objetivos"]
@@ -83,7 +88,7 @@ for k, cfg in S["estrategias"].items():
     if pd.Timestamp(start) > P.cal[-1]:
         nav = pd.Series([cfg["capital"]], index=[dates[0]]); tr = pd.DataFrame()
     else:
-        r = BT.run(P, W, start, end, capital=cfg["capital"], record_trades=True)
+        r = BT.run(P, W, start, end, capital=cfg["capital"], record_trades=True, long_fin=LF_REAL if k == "PILOTO_REAL" else None)
         nav = pd.concat([pd.Series([cfg["capital"]], index=[dates[0]]), r.nav]); tr = r.attrs["trades"]
     for dt, v in nav.items(): navs.append(dict(fecha=str(dt.date()), estrategia=k, valor_eur=round(float(v), 2)))
     last_w = obj[max(obj)]

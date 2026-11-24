@@ -60,7 +60,7 @@ nav button svg{width:22px;height:22px}nav button.on{color:var(--lava)}
   <button data-t="diario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h11a3 3 0 013 3v13H8a3 3 0 01-3-3z"/><path d="M9 8h6M9 12h6"/></svg>Diario</button>
 </nav>
 <script>
-const COL={PRINCIPAL:"#ff6a2b",PRINCIPAL_CLAUDE:"#ffb547",CRIPTO20:"#5aa9ff",PILOTO:"#b98cff",MI_PRACTICA:"#3fbf7f"};
+const COL={PRINCIPAL:"#ff6a2b",PRINCIPAL_CLAUDE:"#ffb547",CRIPTO20:"#5aa9ff",PILOTO:"#b98cff",PILOTO_REAL:"#ff4fa3",MI_PRACTICA:"#3fbf7f"};
 const col=n=>COL[n]||"#9c9087";
 const eur=v=>v==null||isNaN(v)?"–":Number(v).toLocaleString("es-ES",{style:"currency",currency:"EUR",maximumFractionDigits:0});
 const pct=v=>v==null||isNaN(v)?"–":(v>0?"+":"")+Number(v).toLocaleString("es-ES",{maximumFractionDigits:2})+" %";

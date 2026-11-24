@@ -16,7 +16,8 @@
     "PRINCIPAL_CLAUDE": "Igual que PRINCIPAL + overlay.json de Claude que solo puede reducir riesgo.",
     "CRIPTO20": "Universo cripto (20 activos).",
     "PILOTO": "Estrategia en pruebas.",
-    "MI_PRACTICA": "Cartera de Roberto, 1.000 € ficticios, alimentada por issues con etiqueta 'operacion'."
+    "MI_PRACTICA": "Cartera de Roberto, 1.000 € ficticios, alimentada por issues con etiqueta 'operacion'.",
+    "PILOTO_REAL": "PILOTO ejecutable en España: mismos objetivos sin cortos en cripto; ETF de EEUU vía CFD con financiación de largos 3,5 %/año. Candidata a dinero real (IBKR + Kraken)."
   },
   "horario": [
     {
@@ -76,7 +77,11 @@
   "pendiente": [
     "Fijar versiones de codigo/requirements.txt con estado/publico/versiones.txt (en la prueba del 2026-11-24 el autopiloto de PILOTO eligió T20_META para 2026, frente a T55_KONK_META en el sistema anterior; objetivos congelados intactos).",
     "Conectar el repo en Vercel (Roberto, una vez).",
-    "Crear las tareas programadas de Claude tras una prueba end-to-end correcta."
+    "Crear las tareas programadas de Claude tras una prueba end-to-end correcta.",
+    "Ejecutor real: IBKR (IB Gateway en VPS, cuenta Pro + paper) para acciones/ETF-CFD y Kraken (API REST) para cripto al contado. Requiere cuentas de Roberto."
   ],
-  "indicadores": "features.py: Konkorde de Blai5 (k_marron, k_verde, k_azul, k_media), RSI, MFI, momentum, distancias a máximos/mínimos 250d, medias 50/200. PILOTO usa variantes _KONK (entrada solo si k_azul acompaña) y meta-etiquetado LightGBM."
+  "indicadores": "features.py: Konkorde de Blai5 (k_marron, k_verde, k_azul, k_media), RSI, MFI, momentum, distancias a máximos/mínimos 250d, medias 50/200. PILOTO usa variantes _KONK (entrada solo si k_azul acompaña) y meta-etiquetado LightGBM.",
+  "experimentos": {
+    "experimentos/piloto_real/": "2026-11-24: ORIGINAL vs variantes IBKR desde 2014. Sin cortos cripto: CAGR 18,6 %, Sharpe 0,74, MaxDD -49 %. Sin cripto: CAGR 3 %. El motor es cripto largo."
+  }
 }
