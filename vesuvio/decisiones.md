@@ -71,4 +71,5 @@ No se vuelve a usar 2024-2026 para elegir nada: cualquier ajuste nuevo necesita 
 Datos: DeFiLlama, 1.376 hackeos (1.278 asignados al token de su cadena; 59 >= 100M$). Diseño 2018-2023. 4 variantes.
 - CRIPTO_TREND: las 4 variantes empeoran o empatan (2022-23: 0,52-0,55 vs 0,58). NO.
 - PRINCIPAL: vetar entradas empeora; "salir + vetar 7 d" mejora 2018-23 (1,04 vs 1,01) y 2022-23 (0,54 vs 0,39) pero empeora 2018-20; afecta a ~8 operaciones → ruido. NO.
-Conclusión: los hackeos no dan una regla mecánica útil. El valor de los eventos se mide en vivo con PRINCIPAL_CLAUDE (criterio caso a caso).
+- PRINCIPAL V4 (hackeo >= 200M$ en cualquier cadena → no entrar en ninguna cripto 7 d): 1,03 vs 1,01 · 2018-20 igual (1,39) · 2022-23 0,50 vs 0,39 · MaxDD -26 % vs -29 %. No empeora nada, pero solo cambia 4 operaciones: evidencia débil. CANDIDATA para PRINCIPAL_CLAUDE (como criterio de veto), no regla mecánica.
+Conclusión: los hackeos no dan una regla mecánica sólida. El valor de los eventos se mide en vivo con PRINCIPAL_CLAUDE (criterio caso a caso).
