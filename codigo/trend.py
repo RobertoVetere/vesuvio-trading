@@ -8,10 +8,11 @@ META_FEATS = ["sig20", "volratio", "ret5", "ret20", "ret60", "mom_12_1", "dv_z",
               "k_cross", "k_marron", "dist_hi250", "dist_lo250", "skew60", "dma50", "dma200"]
 
 
-def base_trades(P, assets, N=55, stop_mult=3.0, risk=0.005, max_units=3, add_step=1.0, konk=False, cap=0.25, long_only=False, intraday=False, stops_out=None):
+def base_trades(P, assets, N=55, stop_mult=3.0, risk=0.005, max_units=3, add_step=1.0, konk=False, cap=0.25, long_only=False, intraday=False, stops_out=None, red_mult=None):
     """Devuelve pesos objetivo (calendario x activos) y lista de operaciones (para el meta-modelo).
     intraday=True: el stop es una orden en el exchange; salta cuando el mínimo (máximo en cortos) del día lo toca,
-    sin esperar al cierre. Si stops_out es un dict, se rellena con la serie de niveles de stop vigentes cada día."""
+    sin esperar al cierre. red_mult: si se da, la orden en el exchange es solo una RED de seguridad a red_mult x vol
+    (el stop normal sigue evaluándose al cierre con stop_mult). Si stops_out es un dict, se rellena con la serie de niveles de stop vigentes cada día."""
     W = pd.DataFrame(0.0, index=P.cal, columns=assets)
     trades = []
     az_all = P.L["k_azul"]
@@ -55,7 +56,8 @@ def base_trades(P, assets, N=55, stop_mult=3.0, risk=0.005, max_units=3, add_ste
             if pos:
                 w[i] = pos * min(units * risk / (stop_mult * atr[i] / c[i]), cap)
                 if i + 1 < len(c):
-                    sv[i + 1] = ext - stop_mult * atr[i] if pos > 0 else ext + stop_mult * atr[i]
+                    m = red_mult if red_mult else stop_mult
+                    sv[i + 1] = ext - m * atr[i] if pos > 0 else ext + m * atr[i]
         i = len(c) - 1
         LAST_STATE[a] = dict(fecha=str(loc.index[i].date()), precio=float(c[i]), pos=int(pos), unidades=int(units),
                              max_N=float(hi[i]) if hi[i] == hi[i] else None, min_N=float(lo[i]) if lo[i] == lo[i] else None,
