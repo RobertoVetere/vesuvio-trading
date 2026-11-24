@@ -1,11 +1,11 @@
 name: noche
-# Lo lanza Claude tras escribir overlay.json (workflow_dispatch). Si Claude no lo lanza, corre solo a las 22:45 Madrid con overlay vacío.
+# Lo lanza Claude tras escribir overlay.json (workflow_dispatch). Si Claude no lo lanza, corre solo a las 02:30 Madrid con overlay vacío.
 on:
   workflow_dispatch:
     inputs:
       forzar: { description: "Ejecutar aunque ya se haya hecho hoy", type: boolean, default: false }
   schedule:
-    - cron: "45 21 * * *"
+    - cron: "30 1 * * *"   # 02:30 Madrid (invierno), respaldo
 concurrency: { group: noche, cancel-in-progress: false }
 permissions: { contents: write, issues: write }
 jobs:

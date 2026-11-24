@@ -20,19 +20,19 @@
   },
   "horario": [
     {
-      "hora": "22:00",
+      "hora": "01:10",
       "quien": "Claude (tarea programada)",
       "runbook": "sistema/runbook-nocturno.md",
       "hace": "noticias + estado/overlay.json → push → lanza workflow noche → espera → diario, MI_PRACTICA, issues, estado/ultima_ejecucion.json"
     },
     {
-      "hora": "al lanzarlo / 22:45 de respaldo",
+      "hora": "al lanzarlo / 02:30 de respaldo",
       "quien": "GitHub Actions",
       "workflow": ".github/workflows/noche.yml",
       "hace": "codigo/descargar.py (Yahoo) → paper.py → codigo/publicar.py → commit de estado/. Si el overlay no es de hoy usa []. No repite si ya se hizo hoy (salvo forzar)."
     },
     {
-      "hora": "23:30",
+      "hora": "06:30",
       "quien": "GitHub Actions",
       "workflow": ".github/workflows/vigilancia.yml",
       "hace": "si ejecucion.json o ultima_ejecucion.json no son de hoy → issue 'fallo'"
@@ -70,7 +70,8 @@
   },
   "fallos_conocidos": [
     "Yahoo devuelve HTTP 429 desde el entorno de Claude (comprobado 2026-11-24): los datos se descargan en GitHub Actions.",
-    "gh auth status dice token inválido en el entorno de Claude, pero gh api funciona a través del proxy."
+    "gh auth status dice token inválido en el entorno de Claude, pero gh api funciona a través del proxy.",
+    "La decisión es sobre la última vela cripto cerrada (00:00 UTC): ejecutar antes de la 01:00 Madrid repite la decisión del día anterior (idempotente, no decide nada nuevo)."
   ],
   "pendiente": [
     "Conectar el repo en Vercel (Roberto, una vez).",

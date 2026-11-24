@@ -1,4 +1,4 @@
-# Runbook nocturno (Claude, 22:00 Europe/Madrid)
+# Runbook nocturno (Claude, 01:10 Europe/Madrid — la vela cripto del día cierra a las 00:00 UTC)
 
 En orden. Si un paso falla: `estado/ultima_ejecucion.json` con `ok:false`, `paso`, `motivo`; commit; issue `fallo`; PARA. No inventes nada.
 
@@ -11,5 +11,5 @@ En orden. Si un paso falla: `estado/ultima_ejecucion.json` con `ok:false`, `paso
 7. **Resultados**: `git pull`; lee `estado/publico/ejecucion.json`, `resumen.csv` y `operaciones.csv` (solo filas de hoy/ayer).
 8. **MI_PRACTICA**: issues abiertos con etiqueta `operacion` → simula con el precio de cierre de `datos_hasta` (gh api o el último precio en oportunidades si aplica; si no tienes precio fiable, dilo en el issue y no simules). Actualiza `estado/mi_practica.json`, responde con feedback (tamaño, stop, encaje con la estrategia, qué habría hecho Claude), cierra si la operación queda completa.
 9. **Preguntas**: issues `pregunta` → responde (principiante) y cierra.
-10. **Diario** `diario/AAAA-MM-DD.md`: `# AAAA-MM-DD` · `## Qué hizo cada estrategia` (PRINCIPAL, PRINCIPAL_CLAUDE, CRIPTO20, PILOTO, MI_PRACTICA: valor, cambio, operaciones y por qué según el sistema) · `## Noticias clave` · `## Mis vetos` · `### Lección del día` (un concepto, no repetido en `diario/lecciones.json`; añádelo). Añade la fecha al principio de `diario/indice.json`.
+10. **Diario** `diario/<decision>.md` (fecha `decision` de ejecucion.json): `# AAAA-MM-DD` · `## Qué hizo cada estrategia` (PRINCIPAL, PRINCIPAL_CLAUDE, CRIPTO20, PILOTO, MI_PRACTICA: valor, cambio, operaciones y por qué según el sistema) · `## Noticias clave` · `## Mis vetos` · `### Lección del día` (un concepto, no repetido en `diario/lecciones.json`; añádelo). Añade la fecha al principio de `diario/indice.json`.
 11. **Cierre**: `estado/ultima_ejecucion.json` = `{"fecha","ok":true,"resumen":"1 línea"}`; commit `noche AAAA-MM-DD: diario`; push; comprueba que entró (`git status -sb`).
