@@ -8,8 +8,10 @@ META_FEATS = ["sig20", "volratio", "ret5", "ret20", "ret60", "mom_12_1", "dv_z",
               "k_cross", "k_marron", "dist_hi250", "dist_lo250", "skew60", "dma50", "dma200"]
 
 
-def base_trades(P, assets, N=55, stop_mult=3.0, risk=0.005, max_units=3, add_step=1.0, konk=False, cap=0.25, long_only=False):
-    """Devuelve pesos objetivo (calendario x activos) y lista de operaciones (para el meta-modelo)."""
+def base_trades(P, assets, N=55, stop_mult=3.0, risk=0.005, max_units=3, add_step=1.0, konk=False, cap=0.25, long_only=False, intraday=False, stops_out=None):
+    """Devuelve pesos objetivo (calendario x activos) y lista de operaciones (para el meta-modelo).
+    intraday=True: el stop es una orden en el exchange; salta cuando el mínimo (máximo en cortos) del día lo toca,
+    sin esperar al cierre. Si stops_out es un dict, se rellena con la serie de niveles de stop vigentes cada día."""
     W = pd.DataFrame(0.0, index=P.cal, columns=assets)
     trades = []
     az_all = P.L["k_azul"]
@@ -19,6 +21,9 @@ def base_trades(P, assets, N=55, stop_mult=3.0, risk=0.005, max_units=3, add_ste
             continue
         el = P.elig[a].reindex(loc.index).fillna(False).values
         c = loc.values
+        hh = P.Hi[a].reindex(loc.index).fillna(loc).values; ll = P.Lw[a].reindex(loc.index).fillna(loc).values
+        oo = P.O[a].reindex(loc.index).fillna(loc).values
+        sv = np.full(len(c), np.nan)  # nivel de stop vigente DURANTE el día i (fijado al cierre de i-1)
         hi = loc.rolling(N).max().shift(1).values
         lo = loc.rolling(N).min().shift(1).values
         atr = loc.diff().abs().ewm(span=20, adjust=False).mean().values * 1.25
@@ -33,6 +38,12 @@ def base_trades(P, assets, N=55, stop_mult=3.0, risk=0.005, max_units=3, add_ste
                 if d and el[i] and (not konk or (az[i] == az[i] and np.sign(az[i]) == d)):
                     pos, units, ext, last_add, ent_i, ent_px = d, 1, c[i], c[i], i, c[i]
             else:
+                lvl = sv[i]
+                if intraday and lvl == lvl and ((pos > 0 and ll[i] <= lvl) or (pos < 0 and hh[i] >= lvl)):
+                    fill = min(oo[i], lvl) if pos > 0 else max(oo[i], lvl)
+                    trades.append((loc.index[ent_i], loc.index[i], a, pos, pos * (fill / ent_px - 1)))
+                    pos, units = 0, 0
+                    continue
                 ext = max(ext, c[i]) if pos > 0 else min(ext, c[i])
                 stop_hit = (c[i] < ext - stop_mult * atr[i]) if pos > 0 else (c[i] > ext + stop_mult * atr[i])
                 if stop_hit or not el[i]:
@@ -42,6 +53,8 @@ def base_trades(P, assets, N=55, stop_mult=3.0, risk=0.005, max_units=3, add_ste
                     units += 1; last_add = c[i]
             if pos:
                 w[i] = pos * min(units * risk / (stop_mult * atr[i] / c[i]), cap)
+                if i + 1 < len(c):
+                    sv[i + 1] = ext - stop_mult * atr[i] if pos > 0 else ext + stop_mult * atr[i]
         i = len(c) - 1
         LAST_STATE[a] = dict(fecha=str(loc.index[i].date()), precio=float(c[i]), pos=int(pos), unidades=int(units),
                              max_N=float(hi[i]) if hi[i] == hi[i] else None, min_N=float(lo[i]) if lo[i] == lo[i] else None,
@@ -50,6 +63,8 @@ def base_trades(P, assets, N=55, stop_mult=3.0, risk=0.005, max_units=3, add_ste
         if pos:  # operación abierta al final: se registra sin resultado
             trades.append((loc.index[ent_i], pd.NaT, a, pos, np.nan))
         W[a] = pd.Series(w, loc.index).reindex(P.cal).ffill().fillna(0.0)
+        if stops_out is not None:
+            stops_out[a] = pd.Series(sv, loc.index).reindex(P.cal)
     T = pd.DataFrame(trades, columns=["entry", "exit", "asset", "dir", "ret"])
     return W, T
 

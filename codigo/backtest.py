@@ -30,10 +30,13 @@ def _vec(P):
     return slip, borrow, ftt, eu_min, is_us, is_eu, is_cr
 
 
-def run(P, W, start, end, capital=10_000.0, record_trades=False, cost_mult=1.0, long_fin=None):
+def run(P, W, start, end, capital=10_000.0, record_trades=False, cost_mult=1.0, long_fin=None, stops=None):
     """long_fin: tasa anual por activo cobrada sobre posiciones largas (p. ej. financiación de CFD). None = sin coste (original)."""
     slip, borrow, ftt, eu_min, is_us, is_eu, is_cr = _vec(P)
     lf = np.zeros(len(P.tradable)) if long_fin is None else np.asarray(long_fin, float)
+    # stops: DataFrame (calendario x activos) con el nivel de stop vigente durante cada día (orden en el exchange)
+    SV = None if stops is None else stops.reindex(index=cal, columns=P.tradable).values
+    HIv, LOv = P.Hi.values, P.Lw.values
     is_stock = is_us | is_eu
     cal = P.cal
     i0, i1 = cal.searchsorted(pd.Timestamp(start)), cal.searchsorted(pd.Timestamp(end), "right")
@@ -77,6 +80,22 @@ def run(P, W, start, end, capital=10_000.0, record_trades=False, cost_mult=1.0, 
         cost = cost_mult * np.where(do, comm + slip * notional + np.where(du > 0, ftt * notional, 0.0), 0.0)
         tc = cost.sum()
         u = u + du
+        # 2b) stops en el exchange: si el mínimo (máximo en cortos) toca el nivel, sale a ese precio (o a la apertura si abre peor)
+        if SV is not None:
+            sv = SV[i]; hi_, lo_ = np.nan_to_num(HIv[i], nan=np.inf), np.nan_to_num(LOv[i], nan=-np.inf)
+            hitL = b & (u > 0) & ~np.isnan(sv) & (lo_ <= np.nan_to_num(sv, nan=-np.inf))
+            hitS = b & (u < 0) & ~np.isnan(sv) & (hi_ >= np.nan_to_num(sv, nan=np.inf))
+            hit = hitL | hitS
+            if hit.any():
+                fill = np.where(hitL, np.minimum(o, np.nan_to_num(sv)), np.maximum(o, np.nan_to_num(sv)))
+                sp = np.sum(np.where(hit, u * (fill - o) * fxp, 0.0))
+                sn = np.abs(u) * fill * fxp
+                sc = cost_mult * np.where(hit, np.where(is_cr, COST["comm_crypto"] * sn, np.where(is_us, np.clip(0.0035 * np.abs(u), 0.35, 0.01 * np.abs(u) * fill) * fxp, np.maximum(eu_min, 0.0005 * np.abs(u) * fill) * fxp)) + 2 * slip * sn, 0.0)
+                tc += sc.sum(); nav_open += sp
+                if record_trades:
+                    for j in np.where(hit)[0]:
+                        trades.append((cal[i], P.tradable[j], -u[j], fill[j], sc[j]))
+                u = np.where(hit, 0.0, u)
         # 3) intradía hasta el cierre
         pnl2 = np.sum(np.where(b, u * (c - o) * fxp, 0.0)) + np.sum(np.maximum(u, 0) * c * (fx - fxp))
         posv = u * c * fx

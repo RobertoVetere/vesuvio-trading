@@ -48,7 +48,7 @@ def build(end=None, start="2004-01-01"):
     fxc = {"EUR": pd.Series(1.0, P.cal), "USD": 1 / eurusd, "GBP": gbpusd / eurusd, "CHF": (1 / eurusd) / usdchf}
     P.fxc = fxc
 
-    O, C, B, FX = {}, {}, {}, {}
+    O, C, B, FX, HI, LO = {}, {}, {}, {}, {}, {}
     feats = []
     for t in tickers:
         df = raw[t]
@@ -57,10 +57,12 @@ def build(end=None, start="2004-01-01"):
         feats.append(f.reset_index())
         if t in P.tradable:
             O[t] = df.open.reindex(P.cal)
+            HI[t] = df.high.reindex(P.cal); LO[t] = df.low.reindex(P.cal)
             C[t] = df.close.reindex(P.cal)
             B[t] = df.close.reindex(P.cal).notna()
             FX[t] = fxc[currency(t)]
     P.O = pd.DataFrame(O)[P.tradable]
+    P.Hi = pd.DataFrame(HI)[P.tradable]; P.Lw = pd.DataFrame(LO)[P.tradable]
     P.Craw = pd.DataFrame(C)[P.tradable]
     P.C = P.Craw.ffill()
     P.B = pd.DataFrame(B)[P.tradable].fillna(False)
