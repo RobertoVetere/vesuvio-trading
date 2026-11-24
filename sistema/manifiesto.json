@@ -82,6 +82,8 @@
   ],
   "indicadores": "features.py: Konkorde de Blai5 (k_marron, k_verde, k_azul, k_media), RSI, MFI, momentum, distancias a máximos/mínimos 250d, medias 50/200. PILOTO usa variantes _KONK (entrada solo si k_azul acompaña) y meta-etiquetado LightGBM.",
   "experimentos": {
-    "experimentos/piloto_real/": "2026-11-24: ORIGINAL vs variantes IBKR desde 2014. Sin cortos cripto: CAGR 18,6 %, Sharpe 0,74, MaxDD -49 %. Sin cripto: CAGR 3 %. El motor es cripto largo."
+    "experimentos/piloto_real/": "2026-11-24: ORIGINAL vs variantes IBKR desde 2014. Sin cortos cripto: CAGR 18,6 %, Sharpe 0,74, MaxDD -49 %. Sin cripto: CAGR 3 %. El motor es cripto largo.",
+    "experimentos/cripto/": "2026-11-24: añadir 18 monedas muertas (LUNC, FTT, EOS...) NO empeora: las tendencias capturan sus subidas y salen por stop.",
+    "experimentos/kraken/": "2026-11-24: condiciones reales Kraken (sin apalancamiento, 0,40 %/0,25 %, con muertas). Desde 2022: CRIPTO_TREND_1% CAGR 17-22 %, Sharpe 0,60-0,71, MaxDD -46 %; PRINCIPAL CAGR 10-12 %, Sharpe 0,53-0,60, MaxDD -33 %. Capital 1k o 10k da igual. Órdenes limitadas (creador) mejoran mucho."
   }
 }
