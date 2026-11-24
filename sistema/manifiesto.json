@@ -5,7 +5,7 @@
   "fase": {
     "actual": 0,
     "descripcion": {
-      "0": "Montaje: estructura, dashboard y vigilancia. Falta migrar el código del sistema anterior.",
+      "0": "Montaje: estructura, dashboard y vigilancia.",
       "1": "Paper trading en el repo, ejecución nocturna automática.",
       "2": "Ejecutor contra testnet del exchange/broker.",
       "3": "Dinero real con capital máximo fijado por Roberto."
@@ -19,41 +19,62 @@
     "MI_PRACTICA": "Cartera de Roberto, 1.000 € ficticios, alimentada por issues con etiqueta 'operacion'."
   },
   "horario": [
-    {"hora": "21:30", "quien": "GitHub Actions", "workflow": ".github/workflows/datos.yml", "hace": "python codigo/data.py --force → datos/ + datos/meta.json, commit"},
-    {"hora": "22:15", "quien": "Claude (tarea programada)", "runbook": "sistema/runbook-nocturno.md", "hace": "noticias, overlay, paper.py, MI_PRACTICA, issues, diario, estado/publico, commit"},
-    {"hora": "23:30", "quien": "GitHub Actions", "workflow": ".github/workflows/vigilancia.yml", "hace": "si estado/ultima_ejecucion.json no es de hoy → abre issue 'fallo'"},
-    {"hora": "07:30", "quien": "Claude (tarea programada)", "hace": "revisa issues 'fallo' abiertos; reintenta o explica; avisa a Roberto"}
+    {
+      "hora": "22:00",
+      "quien": "Claude (tarea programada)",
+      "runbook": "sistema/runbook-nocturno.md",
+      "hace": "noticias + estado/overlay.json → push → lanza workflow noche → espera → diario, MI_PRACTICA, issues, estado/ultima_ejecucion.json"
+    },
+    {
+      "hora": "al lanzarlo / 22:45 de respaldo",
+      "quien": "GitHub Actions",
+      "workflow": ".github/workflows/noche.yml",
+      "hace": "codigo/descargar.py (Yahoo) → paper.py → codigo/publicar.py → commit de estado/. Si el overlay no es de hoy usa []. No repite si ya se hizo hoy (salvo forzar)."
+    },
+    {
+      "hora": "23:30",
+      "quien": "GitHub Actions",
+      "workflow": ".github/workflows/vigilancia.yml",
+      "hace": "si ejecucion.json o ultima_ejecucion.json no son de hoy → issue 'fallo'"
+    },
+    {
+      "hora": "07:30",
+      "quien": "Claude (tarea programada)",
+      "hace": "revisa issues 'fallo' abiertos; reintenta (gh workflow run noche.yml -f forzar=true) o explica; avisa a Roberto"
+    }
   ],
   "carpetas": {
-    "codigo/": "Código del sistema: backtest.py, data.py, features.py, metrics.py, panel.py, paper.py, trend.py, universe.py (PENDIENTE de migrar).",
-    "datos/": "Precios descargados por Actions. datos/meta.json = fecha, nº de tickers, tickers que fallaron.",
+    "codigo/": "Código migrado del sistema anterior (sha256 verificados 2026-11-24) + descargar.py y publicar.py. Se ejecuta con cwd=codigo/. Caché de precios en codigo/data/raw (no se versiona; vive en la caché de Actions).",
+    "datos/": "(no se usa: los precios viven en la caché de Actions)",
     "estado/state.json": "Estado de las carteras. Solo lo escribe paper.py.",
-    "estado/overlay.json": "Vetos/reducciones de Claude para PRINCIPAL_CLAUDE del día.",
+    "estado/overlay.json": "Lista de vetos del día para PRINCIPAL_CLAUDE: [{\"asset\":\"BTC-USD\",\"accion\":\"veto_entrada\"|\"salir\",\"motivo\":\"...\"}]. paper.py mantiene el veto mientras el sistema quiera la misma posición.",
     "estado/mi_practica.json": "Cartera MI_PRACTICA.",
     "estado/ultima_ejecucion.json": "Resultado de la última ejecución nocturna.",
     "estado/ordenes_propuestas.json": "Fase 2+: órdenes que el ejecutor puede enviar (dentro de sus límites).",
     "estado/publico/": "Lo que lee el dashboard (contrato abajo). Solo esto, diario/ y dashboard/ se publican en Vercel.",
-    "noticias/noticias.csv": "Noticias acumuladas (fecha, activo, titular, fuente, impacto).",
+    "noticias/noticias.csv": "Noticias y decisiones del operador: fecha,tema,lectura,accion.",
     "diario/": "Una nota por noche: AAAA-MM-DD.md. diario/lecciones.json lista los conceptos ya explicados.",
     "dashboard/": "Web estática (sin dependencias). build.sh copia lo publicable a public/.",
     "ejecutor/": "Fase 2+: bot de órdenes con límites duros."
   },
   "contrato_publico": {
-    "estado/publico/resumen.json": {"fecha": "AAAA-MM-DD", "estrategias": [{"nombre": "str", "valor": "float €", "capital_inicial": "float €", "rentabilidad_pct": "float", "rentabilidad_dia_pct": "float", "n_posiciones": "int"}]},
-    "estado/publico/nav.csv": "fecha,estrategia,nav",
-    "estado/publico/posiciones.csv": "estrategia,activo,cantidad,precio_entrada,precio_actual,stop,valor,pnl_pct,fecha_entrada",
-    "estado/publico/oportunidades.csv": "estrategia,activo,precio,maximo_55d,distancia_pct",
-    "estado/publico/operaciones.csv": "fecha,estrategia,activo,lado,cantidad,precio,motivo",
-    "estado/publico/noticias.csv": "fecha,activo,titular,fuente,impacto",
+    "estado/publico/ejecucion.json": "fecha (Madrid), ok, decision, datos_hasta, piloto_variante, principal (estado BTC/ETH)",
+    "estado/publico/datos_meta.json": "fecha, total, fallidos[]",
+    "estado/publico/resumen.csv": "estrategia,descripcion,capital_inicial,valor_actual,rentab,posiciones,exposicion (rentab en fracción)",
+    "estado/publico/nav.csv": "fecha,estrategia,valor_eur",
+    "estado/publico/posiciones.csv": "estrategia,activo,peso,valor_eur (peso<0 = corto)",
+    "estado/publico/operaciones.csv": "estrategia,fecha,activo,lado,unidades,precio,coste_eur",
+    "estado/publico/oportunidades.csv": "activo,precio,maximo_55d,distancia_ruptura,en_posicion,stop,entrada (CRIPTO20 + BTC/ETH)",
+    "estado/publico/noticias.csv": "copia de noticias/noticias.csv",
     "diario/indice.json": "[\"AAAA-MM-DD\", ...] más reciente primero"
   },
   "fallos_conocidos": [
-    "Yahoo devuelve HTTP 429 desde el entorno de Claude (comprobado 2026-11-24): los datos se descargan en GitHub Actions."
+    "Yahoo devuelve HTTP 429 desde el entorno de Claude (comprobado 2026-11-24): los datos se descargan en GitHub Actions.",
+    "gh auth status dice token inválido en el entorno de Claude, pero gh api funciona a través del proxy."
   ],
   "pendiente": [
-    "Migrar codigo/ y estado/state.json + noticias desde el sistema anterior (Roberto debe adjuntarlos).",
-    "Adaptador out/ de paper.py → estado/publico/ (cuando llegue el código).",
     "Conectar el repo en Vercel (Roberto, una vez).",
     "Crear las tareas programadas de Claude tras una prueba end-to-end correcta."
-  ]
+  ],
+  "indicadores": "features.py: Konkorde de Blai5 (k_marron, k_verde, k_azul, k_media), RSI, MFI, momentum, distancias a máximos/mínimos 250d, medias 50/200. PILOTO usa variantes _KONK (entrada solo si k_azul acompaña) y meta-etiquetado LightGBM."
 }

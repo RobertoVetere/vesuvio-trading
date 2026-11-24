@@ -16,14 +16,14 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           HOY=$(TZ=Europe/Madrid date +%F)
-          F=estado/ultima_ejecucion.json
-          FECHA=$(jq -r '.fecha // ""' $F 2>/dev/null || echo "")
-          OK=$(jq -r '.ok // false' $F 2>/dev/null || echo false)
+          FECHA=$(jq -r '.fecha // ""' estado/ultima_ejecucion.json 2>/dev/null || echo "")
+          OK=$(jq -r '.ok // false' estado/ultima_ejecucion.json 2>/dev/null || echo false)
+          SIM=$(jq -r '.fecha // ""' estado/publico/ejecucion.json 2>/dev/null || echo "")
           FASE=$(jq -r '.fase.actual' sistema/manifiesto.json)
           if [ "$FASE" = "0" ]; then echo "Fase 0: vigilancia en seco ($FECHA, ok=$OK)"; exit 0; fi
-          if [ "$FECHA" = "$HOY" ] && [ "$OK" = "true" ]; then echo "OK $HOY"; exit 0; fi
+          if [ "$FECHA" = "$HOY" ] && [ "$OK" = "true" ] && [ "$SIM" = "$HOY" ]; then echo "OK $HOY"; exit 0; fi
           gh label create fallo --color B60205 2>/dev/null || true
           ABIERTO=$(gh issue list --label fallo --state open --json number -q '.[0].number')
-          MSG="Vigilancia $HOY: última ejecución fecha='$FECHA' ok=$OK. La tarea de la mañana debe revisarlo."
+          MSG="Vigilancia $HOY: última ejecución fecha='$FECHA' ok=$OK, simulación='$SIM'. La tarea de la mañana debe revisarlo."
           if [ -n "$ABIERTO" ]; then gh issue comment "$ABIERTO" --body "$MSG"
           else gh issue create --title "🔴 Fallo nocturno $HOY" --label fallo --body "$MSG"; fi

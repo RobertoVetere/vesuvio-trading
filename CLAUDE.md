@@ -9,8 +9,8 @@ Experimento de trading sistemático de Roberto. Claude lo opera cada noche; Robe
 3. `sistema/runbook-nocturno.md` — los pasos exactos de la ejecución nocturna.
 
 ## Reparto de trabajo (no lo cambies sin que Roberto lo pida)
-- **GitHub Actions** hace lo mecánico: descargar datos de Yahoo (desde el entorno de Claude Yahoo devuelve 429), validar ficheros, vigilar que la ejecución nocturna ocurrió.
-- **Claude** hace lo que requiere criterio: noticias, `overlay.json`, ejecutar `paper.py`, cartera MI_PRACTICA, issues, diario.
+- **GitHub Actions** hace lo mecánico: descargar Yahoo y ejecutar `paper.py` (workflow `noche.yml`; desde el entorno de Claude Yahoo devuelve 429), validar ficheros, vigilar que la noche ocurrió.
+- **Claude** hace lo que requiere criterio: noticias, `overlay.json`, lanzar `noche.yml` y leer sus resultados, cartera MI_PRACTICA, issues, diario.
 - **Vercel** sirve el dashboard (`dashboard/`) con los ficheros de `estado/publico/` y `diario/`.
 - **Ejecución con dinero real**: solo la hace el ejecutor (`ejecutor/`, fase 2+), código fijo con límites duros, claves en GitHub Secrets. Claude NUNCA tiene claves ni manda órdenes; solo escribe `estado/ordenes_propuestas.json`.
 

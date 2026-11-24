@@ -1,13 +1,15 @@
-# Runbook nocturno (Claude, 22:15 Europe/Madrid)
+# Runbook nocturno (Claude, 22:00 Europe/Madrid)
 
-Sigue los pasos en orden. Si un paso falla: escribe `estado/ultima_ejecucion.json` con `ok: false`, `paso` y `motivo`, haz commit, abre/actualiza un issue `fallo` y PARA. No inventes nada.
+En orden. Si un paso falla: `estado/ultima_ejecucion.json` con `ok:false`, `paso`, `motivo`; commit; issue `fallo`; PARA. No inventes nada.
 
-1. **Sincroniza**: `git pull`. Lee `estado/ultima_ejecucion.json`.
-2. **Comprueba datos**: `datos/meta.json` debe tener `fecha` = último día hábil y `fallidos` vacío o < 10 %. Si no → fallo.
-3. **Noticias**: busca noticias relevantes de los activos en posición y en oportunidades (las 10 más cercanas a ruptura). Añádelas a `noticias/noticias.csv` sin duplicar.
-4. **Overlay**: escribe `estado/overlay.json` (solo reducir riesgo en PRINCIPAL_CLAUDE). Cada veto con `activo`, `accion` (vetar_entrada | reducir | cerrar) y `motivo` en una frase.
-5. **Simulación**: `python3 codigo/paper.py estado/state.json estado/overlay.json out` y después el adaptador a `estado/publico/`.
-6. **MI_PRACTICA**: procesa issues abiertos con etiqueta `operacion`; actualiza `estado/mi_practica.json`; responde en cada issue.
-7. **Preguntas**: contesta issues con etiqueta `pregunta` y ciérralos.
-8. **Diario**: `diario/AAAA-MM-DD.md` con: qué hizo cada estrategia y por qué · noticias clave · vetos · MI_PRACTICA · **Lección del día** (un concepto para principiante, que no esté en `diario/lecciones.json`; añádelo allí). Actualiza `diario/indice.json`.
-9. **Cierre**: `estado/ultima_ejecucion.json` con `ok: true`, fecha y resumen de 1 línea. Commit `noche AAAA-MM-DD: …` y push. Verifica que el push entró.
+1. **Sincroniza**: `git pull`. Lee `estado/ultima_ejecucion.json` y `estado/publico/ejecucion.json`.
+2. **Contexto barato**: `estado/publico/oportunidades.csv` (top 10 por `distancia_ruptura`) y `posiciones.csv` de PRINCIPAL/PRINCIPAL_CLAUDE. No leas nav.csv entero.
+3. **Noticias**: busca (pocas búsquedas) noticias de BTC/ETH, cripto en general y lo que esté cerca de ruptura. Añade 2-5 filas a `noticias/noticias.csv` (`fecha,tema,lectura,accion`).
+4. **Overlay**: `estado/overlay.json` = `[]` o vetos `{"asset","accion":"veto_entrada"|"salir","motivo"}`. Solo reducir riesgo. Un veto necesita un motivo concreto (evento, no "volatilidad").
+5. **Push + lanzar**: commit `noche AAAA-MM-DD: overlay y noticias`, push, `gh workflow run noche.yml -R RobertoVetere/vesuvio-trading`.
+6. **Esperar**: `gh run list -w noche.yml -L 1 --json status,conclusion,databaseId` cada ~60 s (máx. 40 min). Si `failure` → paso de fallo con el enlace al run.
+7. **Resultados**: `git pull`; lee `estado/publico/ejecucion.json`, `resumen.csv` y `operaciones.csv` (solo filas de hoy/ayer).
+8. **MI_PRACTICA**: issues abiertos con etiqueta `operacion` → simula con el precio de cierre de `datos_hasta` (gh api o el último precio en oportunidades si aplica; si no tienes precio fiable, dilo en el issue y no simules). Actualiza `estado/mi_practica.json`, responde con feedback (tamaño, stop, encaje con la estrategia, qué habría hecho Claude), cierra si la operación queda completa.
+9. **Preguntas**: issues `pregunta` → responde (principiante) y cierra.
+10. **Diario** `diario/AAAA-MM-DD.md`: `# AAAA-MM-DD` · `## Qué hizo cada estrategia` (PRINCIPAL, PRINCIPAL_CLAUDE, CRIPTO20, PILOTO, MI_PRACTICA: valor, cambio, operaciones y por qué según el sistema) · `## Noticias clave` · `## Mis vetos` · `### Lección del día` (un concepto, no repetido en `diario/lecciones.json`; añádelo). Añade la fecha al principio de `diario/indice.json`.
+11. **Cierre**: `estado/ultima_ejecucion.json` = `{"fecha","ok":true,"resumen":"1 línea"}`; commit `noche AAAA-MM-DD: diario`; push; comprueba que entró (`git status -sb`).
