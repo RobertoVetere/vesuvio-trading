@@ -56,7 +56,8 @@
     "noticias/noticias.csv": "Noticias y decisiones del operador: fecha,tema,lectura,accion.",
     "diario/": "Una nota por noche: AAAA-MM-DD.md. diario/lecciones.json lista los conceptos ya explicados.",
     "dashboard/": "Web estática (sin dependencias). build.sh copia lo publicable a public/.",
-    "ejecutor/": "Fase 2+: bot de órdenes con límites duros."
+    "ejecutor/": "Fase 2+: bot de órdenes con límites duros.",
+    "vesuvio/": "Investigación de la estrategia VESUVIO: decisiones.md registra cada palanca probada, ensayos y lo adoptado. Periodo de diseño 2018-2023; 2024-2026 reservado."
   },
   "contrato_publico": {
     "estado/publico/ejecucion.json": "fecha (Madrid), ok, decision, datos_hasta, piloto_variante, principal (estado BTC/ETH)",
