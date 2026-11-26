@@ -1,1 +1,10 @@
-[{"fecha":"2026-11-24","concepto":"Exposición bruta vs neta"}]
+[
+ {
+  "fecha": "2026-11-24",
+  "concepto": "Exposición bruta vs neta"
+ },
+ {
+  "fecha": "2026-11-25",
+  "concepto": "Ruptura de 55 días (canal de Donchian)"
+ }
+]
