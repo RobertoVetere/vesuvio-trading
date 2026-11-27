@@ -6,5 +6,9 @@
  {
   "fecha": "2026-11-25",
   "concepto": "Ruptura de 55 días (canal de Donchian)"
+ },
+ {
+  "fecha": "2026-11-26",
+  "concepto": "Sesgo de retrospectiva al recalcular el histórico"
  }
 ]
