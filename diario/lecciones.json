@@ -10,5 +10,9 @@
  {
   "fecha": "2026-11-26",
   "concepto": "Sesgo de retrospectiva al recalcular el histórico"
+ },
+ {
+  "fecha": "2026-11-27",
+  "concepto": "Reconciliar operaciones y cartera"
  }
 ]
