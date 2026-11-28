@@ -1,5 +1,5 @@
 {
- "fecha": "2026-11-27",
+ "fecha": "2026-11-28",
  "modo": "prueba",
  "estrategia": "PRINCIPAL",
  "ordenes": [],
@@ -7,7 +7,7 @@
   "sin claves: cartera simulada, órdenes no validadas en Kraken"
  ],
  "ok": true,
- "decision": "2026-11-26",
+ "decision": "2026-11-27",
  "pesos": {},
  "con_claves": false,
  "eur": 1000,

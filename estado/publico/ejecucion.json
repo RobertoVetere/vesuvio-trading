@@ -1,13 +1,13 @@
 {
- "fecha": "2026-11-27",
+ "fecha": "2026-11-28",
  "ok": true,
- "decision": "2026-11-26",
- "datos_hasta": "2026-11-27",
+ "decision": "2026-11-27",
+ "datos_hasta": "2026-11-28",
  "piloto_variante": "T55_META_CONUS",
  "principal": {
   "BTC-USD": {
-   "fecha": "2026-11-25",
-   "precio": 60378.19921875,
+   "fecha": "2026-11-26",
+   "precio": 60494.7109375,
    "pos": 0,
    "unidades": 0,
    "max_N": 86480.3046875,
@@ -16,11 +16,11 @@
    "entrada": null,
    "precio_entrada": null,
    "extremo": null,
-   "vol_atr": 1614.1708668174783
+   "vol_atr": 1474.31075078129
   },
   "ETH-USD": {
-   "fecha": "2026-11-25",
-   "precio": 1690.76904296875,
+   "fecha": "2026-11-26",
+   "precio": 1687.7418212890625,
    "pos": 0,
    "unidades": 0,
    "max_N": 2726.509033203125,
@@ -29,7 +29,7 @@
    "entrada": null,
    "precio_entrada": null,
    "extremo": null,
-   "vol_atr": 57.46008456282862
+   "vol_atr": 52.34807909014108
   }
  }
 }
